@@ -109,15 +109,16 @@ const Plants = (props) => {
 							color="textSecondary"
 							paragraph
 						>
-							Well-water plants are happy plants or something like that idk
+							Well-watered plants are happy plants or something like that idk
 						</Typography>
 						<div className={classes.heroButtons}>
 							<Grid container spacing={2} justify="center">
 								<Grid item>
 									<Button variant="contained" color="primary">
-										Add More Plants
+										Add Plant
 									</Button>
 								</Grid>
+								{/* Uncomment for additional CTA */}
 								{/* <Grid item>
 									<Button variant="outlined" color="primary">
 										Secondary action
@@ -130,7 +131,7 @@ const Plants = (props) => {
 				<Container className={classes.cardGrid} maxWidth="md">
 					{/* End hero unit */}
 					<Grid container spacing={4}>
-						{/* Change the map to users */}
+						{/* Change the cards.map to users.map */}
 						{cards.map((card) => (
 							<Grid item key={card} xs={12} sm={6} md={4}>
 								<Card className={classes.card}>
