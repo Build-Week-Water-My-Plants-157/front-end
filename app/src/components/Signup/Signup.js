@@ -25,7 +25,7 @@ const Signup = () => {
     }
     
     const SignupUser = () => {
-        axios.post('http://localhost:5000/api/auth/register', signupCredentials)
+        axios.post('https://tt157-backend.herokuapp.com/api/auth/register', signupCredentials)
         .then((response) => {
             console.log(response);
             history.push('/');
