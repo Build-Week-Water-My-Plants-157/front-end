@@ -28,7 +28,7 @@ const Login = (props) => {
     }
     
     const loginUser = () => {
-        axios.post('http://localhost:5000/api/auth/login', loginCredentials)
+        axios.post('https://tt157-backend.herokuapp.com/api/auth/login', loginCredentials)
         .then((response) => {
             console.log(response);
             localStorage.setItem('token', response.data.token);

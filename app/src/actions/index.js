@@ -10,7 +10,7 @@ export const getUser = (id) => (dispatch) => {
         type: START_FETCHING
     });
     console.log('user id', id)
-    axios.get(`http://localhost:5000/api/users/${id}`)
+    axios.get(`https://tt157-backend.herokuapp.com/api/users/${id}`)
     .then((response) => {
         console.log('user response', response);
         dispatch({
