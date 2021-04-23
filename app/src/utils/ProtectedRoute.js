@@ -9,7 +9,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
         if (localStorage.getItem("token") === null) {
           return <Redirect to="/login" />;
         }
-        return <Component {...props} />;
+        return <Component {...rest} />;
       }}
     />
   );

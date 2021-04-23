@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <Switch>
         <ProtectedRoute exact path="/plants">
-          <Plants isLoading={isLoading} plants={plants} />
+          <Plants />
         </ProtectedRoute>
         <Route path="/plants">
           <Plants />
