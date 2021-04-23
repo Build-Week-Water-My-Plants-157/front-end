@@ -13,17 +13,20 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 const theme = createMuiTheme({
 	palette: {
 		primary: {
-			main: "#4caf50",
-			// light: "",
-			// dark: "",
+			main: "#66bb6a",
+			light: "#98ee99",
+			dark: "#338a3e",
 			// contrastText: "",
 		},
 		secondary: {
-			main: "#087f23",
-			// light: "",
-			// dark: "",
+			main: "#80deea",
+			light: "#b4ffff",
+			dark: "#4bacb8",
 			// contrastText: "",
 		},
+	},
+	typography: {
+		fontFamily: [" Tahoma "],
 	},
 });
 
