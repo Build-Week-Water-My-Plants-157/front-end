@@ -135,6 +135,7 @@ const Plants = (props) => {
 						{cards.map((card) => (
 							<Grid item key={card} xs={12} sm={6} md={4}>
 								<Card className={classes.card}>
+									{/* --------THESE ARE JUST PLACEHOLDER CARDS---------- */}
 									<CardMedia
 										className={classes.cardMedia}
 										image="https://source.unsplash.com/random"
