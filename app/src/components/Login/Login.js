@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axiosWithAuth from '../../utils/axiosWithAuth';
 import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getUser } from '../../actions';
 
 const axios = axiosWithAuth();
 
@@ -9,7 +11,7 @@ const initialLoginCredentials = {
     password: ''
 }
 
-const Login = () => {
+const Login = (props) => {
     const [loginCredentials, setLoginCredentials] = useState(initialLoginCredentials);
     const history = useHistory();
 
@@ -26,10 +28,25 @@ const Login = () => {
     }
     
     const loginUser = () => {
-        axios.post('/api/login', loginCredentials)
+        axios.post('http://localhost:5000/api/auth/login', loginCredentials)
         .then((response) => {
             console.log(response);
             localStorage.setItem('token', response.data.token);
+
+            const parseJwt = (token) => {
+                if (!token) {
+                    return;
+                }
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url
+                    .replace('-', '+')
+                    .replace('_', '/');
+                return JSON.parse(window.atob(base64));
+            };
+
+            const userId = parseJwt(response.data.token).subject;
+            localStorage.setItem('userId', userId);
+            props.getUser(userId);
             history.push('/plants');
         })
         .catch((error) => {
@@ -69,4 +86,9 @@ const Login = () => {
     );
 }
  
-export default Login;
+const mapStateToProps = (state) => ({
+    isLoading: state.isLoading,
+    user: state.user
+});
+
+export default connect(mapStateToProps, {getUser})(Login);
