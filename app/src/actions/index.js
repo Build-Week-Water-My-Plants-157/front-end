@@ -2,18 +2,19 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 const axios = axiosWithAuth();
 
 export const START_FETCHING = 'START_FETCHING';
-export const FETCHING_PLANTS_SUCCESS = 'FETCHING_PLANTS_SUCCESS';
+export const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS';
 export const FETCH_ERROR = 'FETCH_ERROR';
 
-export const getPlants = () => (dispatch) => {
+export const getUser = (id) => (dispatch) => {
     dispatch({
         type: START_FETCHING
     });
-    axios.get('/api/plants')
+    console.log('user id', id)
+    axios.get(`http://localhost:5000/api/users/${id}`)
     .then((response) => {
-        console.log(response);
+        console.log('user response', response);
         dispatch({
-            type: FETCHING_PLANTS_SUCCESS,
+            type: FETCHING_USER_SUCCESS,
             payload: response.data
         });
     })

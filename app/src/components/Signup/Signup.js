@@ -5,7 +5,7 @@ import axios from 'axios';
 const initialSignupCredentials = {
     username: '',
     password: '',
-    phoneNumber: ''
+    phone_number: ''
 }
 
 const Signup = () => {
@@ -25,7 +25,7 @@ const Signup = () => {
     }
     
     const SignupUser = () => {
-        axios.post('/api/signup', signupCredentials)
+        axios.post('http://localhost:5000/api/auth/register', signupCredentials)
         .then((response) => {
             console.log(response);
             history.push('/');
@@ -61,8 +61,8 @@ const Signup = () => {
                     Phone Number
                     <input 
                         type="tel"
-                        name="phoneNumber"
-                        value={signupCredentials.phoneNumber}
+                        name="phone_number"
+                        value={signupCredentials.phone_number}
                         onChange={handleChange}
                     />
                 </label>
