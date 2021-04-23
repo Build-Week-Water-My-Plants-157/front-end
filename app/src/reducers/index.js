@@ -36,6 +36,7 @@ export const reducer = (state = initialState, action) => {
         case CREATE_PLANT_SUCCESS:
             return {
                 ...state,
+                user: action.payload,
                 isLoading: false
             }
         case UPDATE_PLANT_SUCCESS:

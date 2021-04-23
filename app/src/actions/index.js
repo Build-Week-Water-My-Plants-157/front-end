@@ -54,11 +54,15 @@ export const createPlant = (plant) => (dispatch) => {
         type: START_FETCHING
     });
     axios.post('https://tt157-backend.herokuapp.com/api/plants', plant)
-    .then((response) => {
-        dispatch({
-            type: CREATE_PLANT_SUCCESS,
-            payload: response.data
-        });
+    .then((createdPlant) => {
+        const id = localStorage.getItem('userId');
+        axios.post(`https://tt157-backend.herokuapp.com/api/users/${id}`, {plant_id: createdPlant.data.data.id})
+        .then((updatedUser) => {
+            dispatch({
+                type: CREATE_PLANT_SUCCESS,
+                payload: updatedUser.data
+            });
+        })
     })
     .catch((error) => {
         console.log(error);
