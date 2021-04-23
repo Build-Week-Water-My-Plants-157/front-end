@@ -1,12 +1,12 @@
 import {
     START_FETCHING,
-    FETCHING_PLANTS_SUCCESS,
+    FETCHING_USER_SUCCESS,
     FETCH_ERROR
 } from '../actions';
 
 export const initialState = {
     isLoading: false,
-    plants: [],
+    user: null,
     fetchError: ''
 }
 
@@ -17,10 +17,10 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 isLoading: true
             }
-        case FETCHING_PLANTS_SUCCESS:
+        case FETCHING_USER_SUCCESS:
             return {
                 ...state,
-                plants: action.payload,
+                user: action.payload,
                 isLoading: false
             }
         case FETCH_ERROR:

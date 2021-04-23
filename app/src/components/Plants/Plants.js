@@ -1,20 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { getPlants } from '../../actions';
 
 const Plants = (props) => {
-    const { isLoading, plants, getPlants } = props;
-
-    useEffect(() => {
-        getPlants();
-    }, [getPlants]);
+    const { user } = props;
 
     return (
         <div>
             <h1>Plants</h1>
             {
-                !isLoading &&
-                plants.map((plant) => {
+                user &&
+                user.plants.map((plant) => {
                     return (
                         <div>{plant}</div> // Add plant component
                     )
@@ -25,8 +20,7 @@ const Plants = (props) => {
 }
  
 const mapStateToProps = (state) => ({
-    isLoading: state.isLoading,
-    plants: state.plants
+    user: state.user
 });
 
-export default connect(mapStateToProps, {getPlants})(Plants);
+export default connect(mapStateToProps, {})(Plants);
