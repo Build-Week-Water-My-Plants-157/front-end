@@ -82,7 +82,6 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Plants = (props) => {
 	const { user } = props;
-	console.log('user', user)
 	const classes = useStyles();
 	const history = useHistory();
 	useEffect(() => {
