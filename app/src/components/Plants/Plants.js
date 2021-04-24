@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { getUser } from "../../actions";
 
 //
 //
@@ -77,6 +78,9 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const Plants = (props) => {
 	const { user } = props;
 	const classes = useStyles();
+	useEffect(() => {
+		props.getUser(localStorage.getItem("userId"));
+	}, []);
 
 	return (
 		<React.Fragment>
@@ -132,7 +136,7 @@ const Plants = (props) => {
 					{/* End hero unit */}
 					<Grid container spacing={4}>
 						{/* Change the cards.map to user/plants.map */}
-						{cards.map((card) => (
+						{user.plants.map((card) => (
 							<Grid item key={card} xs={12} sm={6} md={4}>
 								<Card className={classes.card}>
 									{/* --------THESE ARE JUST PLACEHOLDER CARDS---------- */}
@@ -188,9 +192,10 @@ const Plants = (props) => {
 	);
 };
 const mapStateToProps = (state) => ({
+	isLoading: state.isLoading,
 	user: state.user,
 });
-export default connect(mapStateToProps, {})(Plants);
+export default connect(mapStateToProps, { getUser })(Plants);
 
 //
 //
@@ -219,5 +224,3 @@ export default connect(mapStateToProps, {})(Plants);
 // const mapStateToProps = (state) => ({
 //     user: state.user
 // });
-
-// export default connect(mapStateToProps, {})(Plants);
