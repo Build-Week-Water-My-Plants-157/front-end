@@ -13,9 +13,18 @@ function App() {
         <ProtectedRoute exact path="/plants">
           <Plants />
         </ProtectedRoute>
-        <Route path="/plants/create">
+        <ProtectedRoute path='/plants/:id/edit'>
+          <EditPlant />
+        </ProtectedRoute>
+        <ProtectedRoute path='/plants/add'>
+          <AddPlant />
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/profile'>
+          <EditProfile>
+        </ProtectedRoute>
+        <ProtectedRoute path="/plants/create">
           <CreatePlant />
-        </Route>
+        </ProtectedRoute>
         <Route path="/signup">
           <Signup />
         </Route>
