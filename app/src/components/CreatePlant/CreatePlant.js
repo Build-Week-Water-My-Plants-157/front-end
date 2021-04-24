@@ -77,25 +77,27 @@ const CreatePlant = (props) => {
 			<CssBaseline />
 			<div className={classes.paper}>
 				<Typography component="h1" variant="h5">
-					Add a Plant
+					Plant Details
 				</Typography>
 
 				{/* FORM --- FORM --- FORM --- */}
 				<form className={classes.form} onSubmit={handleSubmit} noValidate>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
+							What do you call your plant?
 							<TextField
 								variant="outlined"
 								required
 								fullWidth
 								id="nickname"
-								label="Nickname of Plant"
+								label="Nickname"
 								name="nickname"
 								value={plant.nickname}
 								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
+							What species is your plant?
 							<TextField
 								variant="outlined"
 								required
@@ -108,6 +110,7 @@ const CreatePlant = (props) => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
+							How often does it need to be watered?
 							<TextField
 								variant="outlined"
 								required
@@ -120,13 +123,19 @@ const CreatePlant = (props) => {
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							<input
-								type="file"
-								accept="image/*"
-								id="image"
-								value={plant.image}
-								onChange={handleChange}
-							/>
+							{/* Add Image Button */}
+							{/* COMMENT OUT IF WE DONT HAVE THIS FEATURE */}
+							<label htmlFor="image">
+								<input
+									style={{ display: "none" }}
+									id="image"
+									name="image"
+									type="file"
+								/>
+								<Button color="white" variant="contained" component="span">
+									Add Image
+								</Button>
+							</label>
 						</Grid>
 					</Grid>
 					<Button
@@ -136,7 +145,7 @@ const CreatePlant = (props) => {
 						color="primary"
 						className={classes.submit}
 					>
-						Add
+						Add Plant
 					</Button>
 				</form>
 			</div>
