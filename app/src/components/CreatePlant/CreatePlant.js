@@ -42,7 +42,34 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const CreatePlant = () => {
+//
+//
+//
+// =========== Component Starts Here!
+
+const initialPlant = {
+	nickname: "",
+	species: "",
+	h2o_frequency: "",
+	image: "",
+};
+
+const CreatePlant = (props) => {
+	const [plant, setPlant] = useState(initialPlant);
+	const history = useHistory();
+
+	const handleChange = (event) => {
+		setPlant({
+			...plant,
+			[event.target.name]: event.target.value,
+		});
+	};
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		props.createPlant(plant);
+		history.push("/plants");
+	};
 	const classes = useStyles();
 
 	return (
@@ -52,7 +79,9 @@ const CreatePlant = () => {
 				<Typography component="h1" variant="h5">
 					Add a Plant
 				</Typography>
-				<form className={classes.form} noValidate>
+
+				{/* FORM --- FORM --- FORM --- */}
+				<form className={classes.form} onSubmit={handleSubmit} noValidate>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
@@ -62,6 +91,8 @@ const CreatePlant = () => {
 								id="nickname"
 								label="Nickname of Plant"
 								name="nickname"
+								value={plant.nickname}
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -72,6 +103,8 @@ const CreatePlant = () => {
 								id="species"
 								label="Species"
 								name="species"
+								value={plant.species}
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -82,6 +115,17 @@ const CreatePlant = () => {
 								name="h2o_frequency"
 								label="H2o Frequency"
 								id="h2o_frequency"
+								value={plant.h2o_frequency}
+								onChange={handleChange}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<input
+								type="file"
+								accept="image/*"
+								id="image"
+								value={plant.image}
+								onChange={handleChange}
 							/>
 						</Grid>
 					</Grid>
@@ -99,8 +143,11 @@ const CreatePlant = () => {
 		</Container>
 	);
 };
+const mapStateToProps = (state) => ({
+	isLoading: state.isLoading,
+});
 
-export default CreatePlant;
+export default connect(mapStateToProps, { createPlant })(CreatePlant);
 
 //
 //
