@@ -4,6 +4,7 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Plants from "./components/Plants/Plants";
 import CreatePlant from './components/CreatePlant/CreatePlant';
+import EditProfile from './components/EditProfile/EditProfile';
 import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
@@ -14,13 +15,10 @@ function App() {
           <Plants />
         </ProtectedRoute>
         <ProtectedRoute path='/plants/:id/edit'>
-          <EditPlant />
-        </ProtectedRoute>
-        <ProtectedRoute path='/plants/add'>
-          <AddPlant />
+          {/* <EditPlant /> */}
         </ProtectedRoute>
         <ProtectedRoute exact path='/profile'>
-          <EditProfile>
+          {/* <EditProfile /> */}
         </ProtectedRoute>
         <ProtectedRoute path="/plants/create">
           <CreatePlant />

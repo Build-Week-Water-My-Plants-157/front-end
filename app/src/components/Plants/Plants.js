@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getUser } from "../../actions";
+import { useHistory } from 'react-router-dom';
+import { getUser, logout } from "../../actions";
 
 //
 //
@@ -39,6 +40,10 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+	logoWrapper: {
+		display: "flex",
+		alignItems: "center"
+	},
 	icon: {
 		marginRight: theme.spacing(2),
 	},
@@ -77,20 +82,31 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Plants = (props) => {
 	const { user } = props;
+	console.log('user', user)
 	const classes = useStyles();
+	const history = useHistory();
 	useEffect(() => {
 		props.getUser(localStorage.getItem("userId"));
 	}, []);
+
+	const handleLogout = (event) => {
+		event.preventDefault();
+		props.logout();
+		history.push('/');
+	}
 
 	return (
 		<React.Fragment>
 			<CssBaseline />
 			<AppBar position="relative">
 				<Toolbar>
-					<EcoIcon className={classes.icon} />
-					<Typography variant="h6" color="inherit" noWrap>
-						Water My Plants
-					</Typography>
+					<Container className={classes.logoWrapper}>
+						<EcoIcon className={classes.icon} />
+						<Typography variant="h6" color="inherit" noWrap>
+							Water My Plants
+						</Typography>
+					</Container>
+					<Button variant="outlined" onClick={handleLogout}>Logout</Button>
 				</Toolbar>
 			</AppBar>
 			<main>
@@ -136,8 +152,8 @@ const Plants = (props) => {
 					{/* End hero unit */}
 					<Grid container spacing={4}>
 						{/* Change the cards.map to user/plants.map */}
-						{user?.plants.map((card) => (
-							<Grid item key={card} xs={12} sm={6} md={4}>
+						{user?.plants.map((plant, index) => (
+							<Grid item key={index} xs={12} sm={6} md={4}>
 								<Card className={classes.card}>
 									{/* --------THESE ARE JUST PLACEHOLDER CARDS---------- */}
 									<CardMedia
@@ -148,11 +164,11 @@ const Plants = (props) => {
 									<CardContent className={classes.cardContent}>
 										<Typography gutterBottom variant="h5" component="h2">
 											Placeholder Card <br />
-											*Name of plant:
+											*Name of plant: {plant.nickname}
 										</Typography>
 										<Typography>
-											*Species: <br />
-											*H2o Frequency:
+											*Species: {plant.species}<br />
+											*H2o Frequency: {plant.h2o_frequency}
 										</Typography>
 									</CardContent>
 									<CardActions>
@@ -193,9 +209,9 @@ const Plants = (props) => {
 };
 const mapStateToProps = (state) => ({
 	isLoading: state.isLoading,
-	user: state.user,
+	user: state.user
 });
-export default connect(mapStateToProps, { getUser })(Plants);
+export default connect(mapStateToProps, { getUser, logout })(Plants);
 
 //
 //

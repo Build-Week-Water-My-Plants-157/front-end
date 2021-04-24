@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import axiosWithAuth from '../../utils/axiosWithAuth';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getUser } from '../../actions';
-
-const axios = axiosWithAuth();
+import { login, getUser } from '../../actions';
 
 const initialLoginCredentials = {
     username: '',
@@ -15,6 +12,12 @@ const Login = (props) => {
     const [loginCredentials, setLoginCredentials] = useState(initialLoginCredentials);
     const history = useHistory();
 
+    useEffect(() => {
+        if (props.isLoggedIn) {
+            history.push('/plants');
+        }
+    }, [props.isLoggedIn]);
+
     const handleChange = (event) => {
         setLoginCredentials({
             ...loginCredentials,
@@ -24,34 +27,7 @@ const Login = (props) => {
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        loginUser();
-    }
-    
-    const loginUser = () => {
-        axios.post('https://tt157-backend.herokuapp.com/api/auth/login', loginCredentials)
-        .then((response) => {
-            console.log(response);
-            localStorage.setItem('token', response.data.token);
-
-            const parseJwt = (token) => {
-                if (!token) {
-                    return;
-                }
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url
-                    .replace('-', '+')
-                    .replace('_', '/');
-                return JSON.parse(window.atob(base64));
-            };
-
-            const userId = parseJwt(response.data.token).subject;
-            localStorage.setItem('userId', userId);
-            props.getUser(userId);
-            history.push('/plants');
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        props.login(loginCredentials);
     }
 
     return (
@@ -88,7 +64,8 @@ const Login = (props) => {
  
 const mapStateToProps = (state) => ({
     isLoading: state.isLoading,
+    isLoggedIn: state.isLoggedIn,
     user: state.user
 });
 
-export default connect(mapStateToProps, {getUser})(Login);
+export default connect(mapStateToProps, {login, getUser})(Login);
