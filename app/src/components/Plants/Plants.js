@@ -118,9 +118,11 @@ const Plants = (props) => {
 						<div className={classes.heroButtons}>
 							<Grid container spacing={2} justify="center">
 								<Grid item>
-									<Button variant="contained" color="primary">
-										Add Plant
-									</Button>
+									<Link href="/plants/create">
+										<Button variant="contained" color="primary">
+											Add Plant
+										</Button>
+									</Link>
 								</Grid>
 								{/* Uncomment for additional CTA */}
 								{/* <Grid item>
