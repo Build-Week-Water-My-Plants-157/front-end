@@ -131,7 +131,7 @@ const Plants = (props) => {
 				<Container className={classes.cardGrid} maxWidth="md">
 					{/* End hero unit */}
 					<Grid container spacing={4}>
-						{/* Change the cards.map to users.map */}
+						{/* Change the cards.map to user/plants.map */}
 						{cards.map((card) => (
 							<Grid item key={card} xs={12} sm={6} md={4}>
 								<Card className={classes.card}>
