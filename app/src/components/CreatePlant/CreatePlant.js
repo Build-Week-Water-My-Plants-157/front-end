@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
+		backgroundColor: "#c8e6c9",
+		padding: theme.spacing(4),
+		borderRadius: theme.spacing(3),
 	},
 	avatar: {
 		margin: theme.spacing(1),
@@ -39,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
+	},
+	cardGrid: {
+		paddingTop: theme.spacing(0),
+		paddingBottom: theme.spacing(8),
+		backgroundColor: "#c8e6c9",
 	},
 }));
 
@@ -75,6 +83,7 @@ const CreatePlant = (props) => {
 	return (
 		<Container component="main" maxWidth="xs">
 			<CssBaseline />
+
 			<div className={classes.paper}>
 				<Typography component="h1" variant="h5">
 					Plant Details
@@ -103,20 +112,20 @@ const CreatePlant = (props) => {
 								required
 								fullWidth
 								id="species"
-								label="Species"
+								label="e.g. Tomato, Squash, Rose, Hosta "
 								name="species"
 								value={plant.species}
 								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
-							How often does it need to be watered?
+							How long until it needs to be watered?
 							<TextField
 								variant="outlined"
 								required
 								fullWidth
 								name="h2o_frequency"
-								label="H2o Frequency"
+								label="e.g. 3 days, 1 week, 2 weeks"
 								id="h2o_frequency"
 								value={plant.h2o_frequency}
 								onChange={handleChange}
