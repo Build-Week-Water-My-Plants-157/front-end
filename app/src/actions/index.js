@@ -97,7 +97,8 @@ export const deletePlant = (plant) => (dispatch) => {
     dispatch({
         type: START_FETCHING
     });
-    axios.delete(`https://tt157-backend.herokuapp.com/api/plants/${plant.id}`)
+    const id = localStorage.getItem('userId');
+    axios.delete(`https://tt157-backend.herokuapp.com/api/users/${id}/plant`, {plant_id: plant.id})
     .then((response) => {
         dispatch({
             type: DELETE_PLANT_SUCCESS,
