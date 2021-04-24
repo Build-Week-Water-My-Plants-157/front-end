@@ -105,6 +105,7 @@ const CreatePlant = (props) => {
 								onChange={handleChange}
 							/>
 						</Grid>
+
 						<Grid item xs={12}>
 							What species is your plant?
 							<TextField
@@ -112,12 +113,13 @@ const CreatePlant = (props) => {
 								required
 								fullWidth
 								id="species"
-								label="e.g. Tomato, Squash, Rose, Hosta "
+								label="e.g. Tomato, Rose, Hosta "
 								name="species"
 								value={plant.species}
 								onChange={handleChange}
 							/>
 						</Grid>
+
 						<Grid item xs={12}>
 							How long until it needs to be watered?
 							<TextField
@@ -131,6 +133,7 @@ const CreatePlant = (props) => {
 								onChange={handleChange}
 							/>
 						</Grid>
+
 						<Grid item xs={12}>
 							{/* Add Image Button */}
 							{/* COMMENT OUT IF WE DONT HAVE THIS FEATURE */}
@@ -147,6 +150,7 @@ const CreatePlant = (props) => {
 							</label>
 						</Grid>
 					</Grid>
+
 					<Button
 						type="submit"
 						fullWidth
