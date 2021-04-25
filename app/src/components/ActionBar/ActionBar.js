@@ -32,7 +32,7 @@ const ActionBar = (props) => {
 	};
 
 	const handleEditProfile = () => {
-		prompt("woops");
+		prompt("bears, beets, battlestar galactica");
 	};
 
 	return (
@@ -45,7 +45,7 @@ const ActionBar = (props) => {
 					</Typography>
 				</Container>
 				<Button variant="outlined" onClick={handleEditProfile}>
-					Edit Profile
+					Profile / Edit Profile
 				</Button>
 				<Button variant="outlined" onClick={handleLogout}>
 					Logout

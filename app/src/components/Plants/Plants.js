@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import { getUser, logout } from "../../actions";
 
@@ -38,13 +37,6 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-	logoWrapper: {
-		display: "flex",
-		alignItems: "center",
-	},
-	icon: {
-		marginRight: theme.spacing(2),
-	},
 	heroContent: {
 		backgroundColor: theme.palette.background.paper,
 		padding: theme.spacing(2, 0, 4),
@@ -147,8 +139,8 @@ const Plants = (props) => {
 									{/* --------THESE ARE JUST PLACEHOLDER CARDS---------- */}
 									<CardMedia
 										className={classes.cardMedia}
-										image="https://source.unsplash.com/random"
-										title="Image title"
+										image="https://picsum.photos/id/152/1600/900"
+										title={card.nickname}
 									/>
 									<CardContent className={classes.cardContent}>
 										<Typography gutterBottom variant="h5" component="h2">
