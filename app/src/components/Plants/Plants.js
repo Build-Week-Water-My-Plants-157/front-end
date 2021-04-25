@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { getUser, logout } from "../../actions";
+import ActionBar from "../ActionBar/ActionBar";
+import Footer from "../Footer/Footer";
 
 //
 //
@@ -17,25 +19,12 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
-import ActionBar from "../ActionBar/ActionBar";
+
 //
 //
 
 //
-// MUI variables STARTS HERE
-function Copyright() {
-	return (
-		<Typography variant="body2" color="textSecondary" align="center">
-			{"Copyright © "}
-			<Link color="inherit" href="https://material-ui.com/">
-				Water My Plants
-			</Link>{" "}
-			{new Date().getFullYear()}
-			{"."}
-		</Typography>
-	);
-}
-
+// MUI variable
 const useStyles = makeStyles((theme) => ({
 	heroContent: {
 		backgroundColor: theme.palette.background.paper,
@@ -68,13 +57,8 @@ const useStyles = makeStyles((theme) => ({
 	cardContent: {
 		flexGrow: 1,
 	},
-	footer: {
-		backgroundColor: theme.palette.background.paper,
-		padding: theme.spacing(6),
-	},
 }));
-
-// MUI variables ENDS HERE
+// MUI variable
 //
 //
 
@@ -183,22 +167,7 @@ const Plants = (props) => {
 					</Grid>
 				</Container>
 			</main>
-			{/* Footer */}
-			<footer className={classes.footer}>
-				<Typography variant="h6" align="center" gutterBottom>
-					Water My Plants
-				</Typography>
-				<Typography
-					variant="subtitle1"
-					align="center"
-					color="textSecondary"
-					component="p"
-				>
-					WebPT_157 @LambaSchool
-				</Typography>
-				<Copyright />
-			</footer>
-			{/* End footer */}
+			<Footer />
 		</React.Fragment>
 	);
 };

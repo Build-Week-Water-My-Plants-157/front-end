@@ -82,6 +82,7 @@ export default function Dropdown() {
 					aria-controls={open ? "menu-list-grow" : undefined}
 					aria-haspopup="true"
 					onClick={handleToggle}
+					variant="outlined"
 				>
 					Account
 				</Button>
