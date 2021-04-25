@@ -146,8 +146,8 @@ const Plants = (props) => {
 					{/* End hero unit */}
 					<Grid container spacing={4}>
 						{/* Change the cards.map to user/plants.map */}
-						{user?.plants.map((card) => (
-							<Grid item key={card} xs={12} sm={6} md={4}>
+						{user?.plants.map((card, index) => (
+							<Grid item key={index} xs={12} sm={6} md={4}>
 								<Card className={classes.card}>
 									{/* --------THESE ARE JUST PLACEHOLDER CARDS---------- */}
 									<CardMedia

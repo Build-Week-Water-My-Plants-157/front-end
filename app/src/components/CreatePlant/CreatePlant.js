@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
 		paddingBottom: theme.spacing(8),
 		backgroundColor: "#c8e6c9",
 	},
+	input: {
+		marginTop: "10px"
+	}
 }));
 
 //
@@ -97,6 +100,7 @@ const CreatePlant = (props) => {
 								name="nickname"
 								value={plant.nickname}
 								onChange={handleChange}
+								className={classes.input}
 							/>
 						</Grid>
 
@@ -111,6 +115,7 @@ const CreatePlant = (props) => {
 								name="species"
 								value={plant.species}
 								onChange={handleChange}
+								className={classes.input}
 							/>
 						</Grid>
 
@@ -125,23 +130,21 @@ const CreatePlant = (props) => {
 								id="h2o_frequency"
 								value={plant.h2o_frequency}
 								onChange={handleChange}
+								className={classes.input}
 							/>
 						</Grid>
 
 						<Grid item xs={12}>
-							{/* Add Image Button */}
-							{/* COMMENT OUT IF WE DONT HAVE THIS FEATURE */}
-							<label htmlFor="image">
-								<input
-									style={{ display: "none" }}
-									id="image"
-									name="image"
-									type="file"
-								/>
-								<Button color="white" variant="contained" component="span">
-									Add Image
-								</Button>
-							</label>
+							Image URL
+							<TextField
+								variant="outlined"
+								fullWidth
+								name="image"
+								id="image"
+								value={plant.image}
+								onChange={handleChange}
+								className={classes.input}
+							/>
 						</Grid>
 					</Grid>
 
