@@ -51,6 +51,15 @@ export const reducer = (state = initialState, action) => {
         case UPDATE_PLANT_SUCCESS:
             return {
                 ...state,
+                user: {
+                    ...state.user,
+                    plants: state.user.plants.map((plant) => {
+                        if (String(plant.id) === String(action.payload.id)) {
+                            return action.payload;
+                        }
+                        return plant;
+                    })
+                },
                 isLoading: false
             }
         case DELETE_PLANT_SUCCESS:

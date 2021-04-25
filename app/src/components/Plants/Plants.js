@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { getUser, logout } from "../../actions";
 
 //
@@ -20,7 +21,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
-import axios from "axios";
 //
 //
 
@@ -89,16 +89,16 @@ const useStyles = makeStyles((theme) => ({
 //
 
 const Plants = (props) => {
-	const { user } = props;
+	const { user, getUser, logout } = props;
 	const classes = useStyles();
 	const history = useHistory();
 	useEffect(() => {
-		props.getUser(localStorage.getItem("userId"));
-	}, []);
+		getUser(localStorage.getItem("userId"));
+	}, [user, getUser]);
 
 	const handleLogout = (event) => {
 		event.preventDefault();
-		props.logout();
+		logout();
 		history.push('/');
 	}
 
@@ -160,7 +160,6 @@ const Plants = (props) => {
 				<Container className={classes.cardGrid} maxWidth="md">
 					{/* End hero unit */}
 					<Grid container spacing={4}>
-						{/* Change the cards.map to user/plants.map */}
 						{user?.plants.map((card, index) => (
 							<Grid item key={index} xs={12} sm={6} md={4}>
 								<Card className={classes.card}>
@@ -188,13 +187,15 @@ const Plants = (props) => {
 										>
 											View
 										</Button>
-										<Button
-											className={classes.cardButton}
-											size="small"
-											color="primary"
-										>
-											Edit
-										</Button>
+										<RouterLink to={`/plants/${card.id}/edit`}>
+											<Button
+												className={classes.cardButton}
+												size="small"
+												color="primary"
+											>
+												Edit
+											</Button>
+										</RouterLink>
 										<Button
 											className={classes.cardButton}
 											size="small"
@@ -233,31 +234,3 @@ const mapStateToProps = (state) => ({
 	user: state.user
 });
 export default connect(mapStateToProps, { getUser, logout })(Plants);
-
-//
-//
-//
-//
-//
-// ------ Kristin's initial codes!
-// const Plants = (props) => {
-//     const { user } = props;
-
-//     return (
-//         <div>
-//             <h1>Plants</h1>
-//             {
-//                 user &&
-//                 user.plants.map((plant) => {
-//                     return (
-//                         <div>{plant}</div> // Add plant component
-//                     )
-//                 })
-//             }
-//         </div>
-//     );
-// }
-
-// const mapStateToProps = (state) => ({
-//     user: state.user
-// });

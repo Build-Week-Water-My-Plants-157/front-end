@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login, getUser } from '../../actions';
+import { login } from '../../actions';
 
 const initialLoginCredentials = {
     username: '',
@@ -11,12 +11,13 @@ const initialLoginCredentials = {
 const Login = (props) => {
     const [loginCredentials, setLoginCredentials] = useState(initialLoginCredentials);
     const history = useHistory();
+    const { isLoggedIn, login } = props;
 
     useEffect(() => {
-        if (props.isLoggedIn) {
+        if (isLoggedIn) {
             history.push('/plants');
         }
-    }, [props.isLoggedIn]);
+    }, [isLoggedIn, history]);
 
     const handleChange = (event) => {
         setLoginCredentials({
@@ -27,7 +28,7 @@ const Login = (props) => {
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.login(loginCredentials);
+        login(loginCredentials);
     }
 
     return (
@@ -68,4 +69,4 @@ const mapStateToProps = (state) => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, {login, getUser})(Login);
+export default connect(mapStateToProps, {login})(Login);
