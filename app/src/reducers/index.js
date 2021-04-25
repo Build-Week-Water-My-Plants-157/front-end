@@ -1,15 +1,18 @@
 import {
     START_FETCHING,
+    LOGIN,
     FETCHING_USER_SUCCESS,
     UPDATE_USER_SUCCESS,
     CREATE_PLANT_SUCCESS,
     UPDATE_PLANT_SUCCESS,
     DELETE_PLANT_SUCCESS,
-    FETCH_ERROR
+    FETCH_ERROR,
+    LOGOUT
 } from '../actions';
 
 export const initialState = {
     isLoading: false,
+    isLoggedIn: false,
     user: null,
     fetchError: ''
 }
@@ -20,6 +23,12 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true
+            }
+        case LOGIN: 
+            return {
+                ...state,
+                isLoggedIn: true,
+                isLoading: false
             }
         case FETCHING_USER_SUCCESS:
             return {
@@ -42,6 +51,15 @@ export const reducer = (state = initialState, action) => {
         case UPDATE_PLANT_SUCCESS:
             return {
                 ...state,
+                user: {
+                    ...state.user,
+                    plants: state.user.plants.map((plant) => {
+                        if (String(plant.id) === String(action.payload.id)) {
+                            return action.payload;
+                        }
+                        return plant;
+                    })
+                },
                 isLoading: false
             }
         case DELETE_PLANT_SUCCESS:
@@ -55,6 +73,8 @@ export const reducer = (state = initialState, action) => {
                 fetchError: action.payload,
                 isLoading: false
             }
+        case LOGOUT: 
+            return initialState
         default: 
             return state
     }
