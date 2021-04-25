@@ -44,20 +44,28 @@ const useStyles = makeStyles((theme) => ({
 	},
 	heroContent: {
 		backgroundColor: theme.palette.background.paper,
-		padding: theme.spacing(8, 0, 6),
+		padding: theme.spacing(2, 0, 4),
 	},
 	heroButtons: {
 		marginTop: theme.spacing(4),
 	},
 	cardGrid: {
-		paddingTop: theme.spacing(8),
+		paddingTop: theme.spacing(4),
 		paddingBottom: theme.spacing(8),
-		backgroundColor: "#c8e6c9",
 	},
 	card: {
 		height: "100%",
 		display: "flex",
 		flexDirection: "column",
+		padding: theme.spacing(2),
+		backgroundColor: "#c8e6c9",
+	},
+	cardButton: {
+		color: theme.palette.primary.dark,
+		"&:hover": {
+			backgroundColor: theme.palette.primary.dark,
+			color: "#fff",
+		},
 	},
 	cardMedia: {
 		paddingTop: "56.25%", // 16:9
@@ -70,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(6),
 	},
 }));
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 // MUI variables ENDS HERE
 //
 //
@@ -98,8 +106,8 @@ const Plants = (props) => {
 				<div className={classes.heroContent}>
 					<Container maxWidth="sm">
 						<Typography
-							component="h1"
-							variant="h2"
+							component="h3"
+							variant="h3"
 							align="center"
 							color="textPrimary"
 							gutterBottom
@@ -113,14 +121,16 @@ const Plants = (props) => {
 							color="textSecondary"
 							paragraph
 						>
-							Well-watered plants are happy plants or something like that idk
+							Well-watered plants are happy plants or something like that idr
 						</Typography>
 						<div className={classes.heroButtons}>
 							<Grid container spacing={2} justify="center">
 								<Grid item>
-									<Button variant="contained" color="primary">
-										Add Plant
-									</Button>
+									<Link href="/plants/create">
+										<Button variant="contained" color="primary">
+											Add Plant
+										</Button>
+									</Link>
 								</Grid>
 								{/* Uncomment for additional CTA */}
 								{/* <Grid item>
@@ -136,8 +146,8 @@ const Plants = (props) => {
 					{/* End hero unit */}
 					<Grid container spacing={4}>
 						{/* Change the cards.map to user/plants.map */}
-						{user?.plants.map((card) => (
-							<Grid item key={card} xs={12} sm={6} md={4}>
+						{user?.plants.map((card, index) => (
+							<Grid item key={index} xs={12} sm={6} md={4}>
 								<Card className={classes.card}>
 									{/* --------THESE ARE JUST PLACEHOLDER CARDS---------- */}
 									<CardMedia
@@ -148,21 +158,33 @@ const Plants = (props) => {
 									<CardContent className={classes.cardContent}>
 										<Typography gutterBottom variant="h5" component="h2">
 											Placeholder Card <br />
-											*Name of plant:
 										</Typography>
 										<Typography>
-											*Species: <br />
-											*H2o Frequency:
+											Nickname: {card.nickname} <br />
+											Species: {card.species} <br />
+											H2o Frequency: {card.h2o_frequency}
 										</Typography>
 									</CardContent>
 									<CardActions>
-										<Button size="small" color="primary">
+										<Button
+											className={classes.cardButton}
+											size="small"
+											color="primary"
+										>
 											View
 										</Button>
-										<Button size="small" color="primary">
+										<Button
+											className={classes.cardButton}
+											size="small"
+											color="primary"
+										>
 											Edit
 										</Button>
-										<Button size="small" color="primary">
+										<Button
+											className={classes.cardButton}
+											size="small"
+											color="primary"
+										>
 											Delete
 										</Button>
 									</CardActions>
