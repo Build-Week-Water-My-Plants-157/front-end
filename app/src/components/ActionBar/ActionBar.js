@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { logout } from "../../actions";
 
-import Button from "@material-ui/core/Button";
+// MUI imports
 import EcoIcon from "@material-ui/icons/Eco";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Dropdown from "./Dropdown";
+//
 
 const useStyles = makeStyles((theme) => ({
+	toolBarWrapper: {
+		minHeight: theme.spacing(10),
+		marginRight: theme.spacing(16),
+	},
 	logoWrapper: {
 		display: "flex",
 		alignItems: "center",
@@ -24,19 +29,9 @@ const ActionBar = (props) => {
 	const classes = useStyles();
 	const history = useHistory();
 
-	const handleLogout = (event) => {
-		event.preventDefault();
-		logout();
-		history.push("/");
-	};
-
-	const handleEditProfile = () => {
-		prompt("bears, beets, battlestar galactica");
-	};
-
 	return (
 		<AppBar position="relative">
-			<Toolbar>
+			<Toolbar className={classes.toolBarWrapper}>
 				<Container className={classes.logoWrapper}>
 					<EcoIcon className={classes.icon} />
 					<Typography variant="h6" color="inherit" noWrap>
@@ -44,13 +39,8 @@ const ActionBar = (props) => {
 					</Typography>
 				</Container>
 
-				<Button variant="outlined" onClick={handleEditProfile}>
-					Profile / Edit Profile
-				</Button>
-
-				<Button variant="outlined" onClick={handleLogout}>
-					Logout
-				</Button>
+				{/* Dropdown Menu */}
+				<Dropdown />
 			</Toolbar>
 		</AppBar>
 	);
