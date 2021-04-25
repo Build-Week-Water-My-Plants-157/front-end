@@ -3,8 +3,10 @@ import { Route, Switch } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Plants from "./components/Plants/Plants";
-import CreatePlant from './components/CreatePlant/CreatePlant';
+import CreatePlant from "./components/CreatePlant/CreatePlant";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import EditProfile from "./components/EditProfile/EditProfile";
+import EditPlant from "./components/EditPlant/EditPlant";
 
 function App() {
   return (
@@ -13,14 +15,11 @@ function App() {
         <ProtectedRoute exact path="/plants">
           <Plants />
         </ProtectedRoute>
-        <ProtectedRoute path='/plants/:id/edit'>
+        <ProtectedRoute path="/plants/:id/edit">
           <EditPlant />
         </ProtectedRoute>
-        <ProtectedRoute path='/plants/add'>
-          <AddPlant />
-        </ProtectedRoute>
-        <ProtectedRoute exact path='/profile'>
-          <EditProfile>
+        <ProtectedRoute exact path="/profile">
+          <EditProfile />
         </ProtectedRoute>
         <ProtectedRoute path="/plants/create">
           <CreatePlant />
