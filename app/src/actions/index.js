@@ -2,12 +2,49 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 const axios = axiosWithAuth();
 
 export const START_FETCHING = "START_FETCHING";
+export const LOGIN = "LOGIN";
 export const FETCHING_USER_SUCCESS = "FETCHING_USER_SUCCESS";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const CREATE_PLANT_SUCCESS = "CREATE_PLANT_SUCCESS";
 export const UPDATE_PLANT_SUCCESS = "UPDATE_PLANT_SUCCESS";
 export const DELETE_PLANT_SUCCESS = "DELETE_PLANT_SUCCESS";
 export const FETCH_ERROR = "FETCH_ERROR";
+export const LOGOUT = "LOGOUT";
+
+export const login = (loginCredentials) => (dispatch) => {
+	dispatch({
+		type: START_FETCHING,
+	});
+	axios.post('https://tt157-backend.herokuapp.com/api/auth/login', loginCredentials)
+	.then((response) => {
+		console.log(response);
+		localStorage.setItem('token', response.data.token);
+
+		const parseJwt = (token) => {
+			if (!token) {
+				return;
+			}
+			const base64Url = token.split('.')[1];
+			const base64 = base64Url
+				.replace('-', '+')
+				.replace('_', '/');
+			return JSON.parse(window.atob(base64));
+		};
+
+		const userId = parseJwt(response.data.token).subject;
+		localStorage.setItem('userId', userId);
+		dispatch({
+			type: LOGIN
+		});
+	})
+	.catch((error) => {
+		console.log(error);
+		dispatch({
+			type: FETCH_ERROR,
+			payload: error.message,
+		});
+	});
+}
 
 export const getUser = (id) => (dispatch) => {
 	dispatch({
@@ -101,22 +138,29 @@ export const updatePlant = (plant) => (dispatch) => {
 };
 
 export const deletePlant = (plant) => (dispatch) => {
+    dispatch({
+        type: START_FETCHING
+    });
+    const id = localStorage.getItem('userId');
+    axios.delete(`https://tt157-backend.herokuapp.com/api/users/${id}/plant`, {plant_id: plant.id})
+    .then((response) => {
+        dispatch({
+            type: DELETE_PLANT_SUCCESS,
+            payload: response.data
+        });
+    })
+    .catch((error) => {
+        console.log(error);
+        dispatch({
+            type: FETCH_ERROR,
+            payload: error.message
+        });
+    })
+}
+
+export const logout = () => (dispatch) => {
+	localStorage.clear();
 	dispatch({
-		type: START_FETCHING,
+		type: LOGOUT
 	});
-	axios
-		.delete(`https://tt157-backend.herokuapp.com/api/plants/${plant.id}`)
-		.then((response) => {
-			dispatch({
-				type: DELETE_PLANT_SUCCESS,
-				payload: response.data,
-			});
-		})
-		.catch((error) => {
-			console.log(error);
-			dispatch({
-				type: FETCH_ERROR,
-				payload: error.message,
-			});
-		});
-};
+}
