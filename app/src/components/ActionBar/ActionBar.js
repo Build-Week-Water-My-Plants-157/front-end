@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Link as RouterLink } from "react-router-dom";
 import { logout } from "../../actions";
 
 import Button from "@material-ui/core/Button";
@@ -44,9 +43,11 @@ const ActionBar = (props) => {
 						Water My Plants
 					</Typography>
 				</Container>
+
 				<Button variant="outlined" onClick={handleEditProfile}>
 					Profile / Edit Profile
 				</Button>
+
 				<Button variant="outlined" onClick={handleLogout}>
 					Logout
 				</Button>
