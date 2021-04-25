@@ -1,26 +1,24 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory } from 'react-router-dom';
-import { Link as RouterLink } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { getUser, logout } from "../../actions";
 
 //
 //
 // MUI imports
-import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import EcoIcon from "@material-ui/icons/Eco";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
+import ActionBar from "../ActionBar/ActionBar";
 //
 //
 
@@ -42,7 +40,7 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
 	logoWrapper: {
 		display: "flex",
-		alignItems: "center"
+		alignItems: "center",
 	},
 	icon: {
 		marginRight: theme.spacing(2),
@@ -89,33 +87,16 @@ const useStyles = makeStyles((theme) => ({
 //
 
 const Plants = (props) => {
-	const { user, getUser, logout } = props;
+	const { user, getUser } = props;
 	const classes = useStyles();
-	const history = useHistory();
 	useEffect(() => {
 		getUser(localStorage.getItem("userId"));
 	}, [user, getUser]);
 
-	const handleLogout = (event) => {
-		event.preventDefault();
-		logout();
-		history.push('/');
-	}
-
 	return (
 		<React.Fragment>
 			<CssBaseline />
-			<AppBar position="relative">
-				<Toolbar>
-					<Container className={classes.logoWrapper}>
-						<EcoIcon className={classes.icon} />
-						<Typography variant="h6" color="inherit" noWrap>
-							Water My Plants
-						</Typography>
-					</Container>
-					<Button variant="outlined" onClick={handleLogout}>Logout</Button>
-				</Toolbar>
-			</AppBar>
+			<ActionBar />
 			<main>
 				{/* Hero unit */}
 				<div className={classes.heroContent}>
@@ -231,6 +212,6 @@ const Plants = (props) => {
 };
 const mapStateToProps = (state) => ({
 	isLoading: state.isLoading,
-	user: state.user
+	user: state.user,
 });
 export default connect(mapStateToProps, { getUser, logout })(Plants);
