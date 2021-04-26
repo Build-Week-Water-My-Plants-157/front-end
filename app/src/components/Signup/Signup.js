@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+// import { Link } from 'react-router'
 import axios from 'axios';
 
 // MUI Imports
@@ -150,7 +151,7 @@ const Signup = () => {
             </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="/" variant="body2">
                                 Already have an account? Sign in
                 </Link>
                         </Grid>
