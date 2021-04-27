@@ -94,7 +94,7 @@ const Plants = (props) => {
   const history = useHistory();
   useEffect(() => {
     getUser(localStorage.getItem("userId"));
-  }, [user, getUser]);
+  }, [getUser]);
 
   const handleLogout = (event) => {
     event.preventDefault();
