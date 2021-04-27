@@ -36,8 +36,14 @@ export default function Dropdown() {
 		history.push("/");
 	};
 
-	const handleAccount = () => {
-		prompt("bears, beets, battlestar galactica");
+	const handleProfile = (event) => {
+		event.preventDefault();
+		history.push("/profile");
+	};
+
+	const handleViewPlants = (event) => {
+		event.preventDefault();
+		history.push("/plants");
 	};
 
 	//
@@ -84,7 +90,7 @@ export default function Dropdown() {
 					onClick={handleToggle}
 					variant="outlined"
 				>
-					Account
+					Menu
 				</Button>
 				<Popper
 					open={open}
@@ -110,14 +116,14 @@ export default function Dropdown() {
 									>
 										<MenuItem
 											className={classes.menuItem}
-											onClick={handleAccount}
+											onClick={handleViewPlants}
 										>
-											Profile
+											View Plants
 										</MenuItem>
 
 										<MenuItem
 											className={classes.menuItem}
-											onClick={handleAccount}
+											onClick={handleProfile}
 										>
 											Edit Profile
 										</MenuItem>
