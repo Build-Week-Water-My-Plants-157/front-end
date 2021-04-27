@@ -61,9 +61,20 @@ const useStyles = makeStyles((theme) => ({
 //
 //
 
+const NoPlants = (props) => {
+	const classes = useStyles();
+	return (
+		<Container className={classes.cardGrid} maxWidth="md">
+			You currently have no plants. Add a plant right now!
+		</Container>
+	);
+};
+
 const Plants = (props) => {
 	const { user, getUser } = props;
 	const classes = useStyles();
+
+	// ! with the getUser, user becomes null if page is reloaded
 	useEffect(() => {
 		getUser(localStorage.getItem("userId"));
 	}, [getUser]);
@@ -103,68 +114,68 @@ const Plants = (props) => {
 										</Button>
 									</Link>
 								</Grid>
-								{/* Uncomment for additional CTA */}
-								{/* <Grid item>
-									<Button variant="outlined" color="primary">
-										Secondary action
-									</Button>
-								</Grid> */}
 							</Grid>
 						</div>
 					</Container>
 				</div>
-				<Container className={classes.cardGrid} maxWidth="md">
-					{/* End hero unit */}
-					<Grid container spacing={4}>
-						{user?.plants.map((card, index) => (
-							<Grid item key={index} xs={12} sm={6} md={4}>
-								<Card className={classes.card}>
-									{/* --------THESE ARE JUST PLACEHOLDER CARDS---------- */}
-									<CardMedia
-										className={classes.cardMedia}
-										image="https://picsum.photos/id/152/1600/900"
-										title={card.nickname}
-									/>
-									<CardContent className={classes.cardContent}>
-										<Typography gutterBottom variant="h5" component="h2">
-											Placeholder Card <br />
-										</Typography>
-										<Typography>
-											Nickname: {card.nickname} <br />
-											Species: {card.species} <br />
-											H2o Frequency: {card.h2o_frequency}
-										</Typography>
-									</CardContent>
-									<CardActions>
-										<Button
-											className={classes.cardButton}
-											size="small"
-											color="primary"
-										>
-											View
-										</Button>
-										<RouterLink to={`/plants/${card.id}/edit`}>
+				{/* End hero unit */}
+
+				{/* User Has no Plants? */}
+				{user.plants <= 0 ? (
+					<NoPlants />
+				) : (
+					<Container className={classes.cardGrid} maxWidth="md">
+						<Grid container spacing={4}>
+							{user?.plants.map((card, index) => (
+								<Grid item key={index} xs={12} sm={6} md={4}>
+									<Card className={classes.card}>
+										{/* --------THESE ARE JUST PLACEHOLDER CARDS---------- */}
+										<CardMedia
+											className={classes.cardMedia}
+											image="https://picsum.photos/id/152/1600/900"
+											title={card.nickname}
+										/>
+										<CardContent className={classes.cardContent}>
+											<Typography gutterBottom variant="h5" component="h2">
+												Placeholder Card <br />
+											</Typography>
+											<Typography>
+												Nickname: {card.nickname} <br />
+												Species: {card.species} <br />
+												H2o Frequency: {card.h2o_frequency}
+											</Typography>
+										</CardContent>
+										<CardActions>
 											<Button
 												className={classes.cardButton}
 												size="small"
 												color="primary"
 											>
-												Edit
+												View
 											</Button>
-										</RouterLink>
-										<Button
-											className={classes.cardButton}
-											size="small"
-											color="primary"
-										>
-											Delete
-										</Button>
-									</CardActions>
-								</Card>
-							</Grid>
-						))}
-					</Grid>
-				</Container>
+											<RouterLink to={`/plants/${card.id}/edit`}>
+												<Button
+													className={classes.cardButton}
+													size="small"
+													color="primary"
+												>
+													Edit
+												</Button>
+											</RouterLink>
+											<Button
+												className={classes.cardButton}
+												size="small"
+												color="primary"
+											>
+												Delete
+											</Button>
+										</CardActions>
+									</Card>
+								</Grid>
+							))}
+						</Grid>
+					</Container>
+				)}
 			</main>
 		</React.Fragment>
 	);
