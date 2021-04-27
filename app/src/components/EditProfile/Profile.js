@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getUser } from "../../actions";
 
 function Profile(props) {
-  const { user, getUser } = props;
+  const { getUser } = props;
 
   useEffect(() => {
     getUser(localStorage.getItem("userId"));
