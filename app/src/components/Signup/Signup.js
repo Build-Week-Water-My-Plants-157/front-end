@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { signup, clearError } from "../../actions";
 
 // MUI Imports
 import Avatar from "@material-ui/core/Avatar";
@@ -14,17 +14,23 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Footer from "../Footer/Footer";
+import { connect } from "react-redux";
 
 const initialSignupCredentials = {
 	username: "",
 	password: "",
 	phone_number: "",
 };
-const Signup = () => {
+const Signup = (props) => {
 	const [signupCredentials, setSignupCredentials] = useState(
 		initialSignupCredentials,
 	);
+	const { isLoading, signup, clearError } = props;
 	const history = useHistory();
+
+	useEffect(() => {
+		clearError();
+	}, []);
 
 	const handleChange = (event) => {
 		setSignupCredentials({
@@ -35,22 +41,7 @@ const Signup = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		SignupUser();
-	};
-
-	const SignupUser = () => {
-		axios
-			.post(
-				"https://tt157-backend.herokuapp.com/api/auth/register",
-				signupCredentials,
-			)
-			.then((response) => {
-				console.log(response);
-				history.push("/");
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		signup(signupCredentials, history);
 	};
 
 	const useStyles = makeStyles((theme) => ({
@@ -138,6 +129,7 @@ const Signup = () => {
 						variant="contained"
 						color="primary"
 						className={classes.submit}
+						disabled={isLoading}
 					>
 						Sign Up
 					</Button>
@@ -154,4 +146,9 @@ const Signup = () => {
 		</Container>
 	);
 };
-export default Signup;
+
+const mapStateToProps = (state) => ({
+	isLoading: state.isLoading
+})
+
+export default connect(mapStateToProps, {signup, clearError})(Signup);

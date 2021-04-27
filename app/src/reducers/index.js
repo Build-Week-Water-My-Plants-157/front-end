@@ -7,14 +7,15 @@ import {
     UPDATE_PLANT_SUCCESS,
     DELETE_PLANT_SUCCESS,
     FETCH_ERROR,
-    LOGOUT
+    LOGOUT,
+    CLEAR_ERROR
 } from '../actions';
 
 export const initialState = {
     isLoading: false,
     isLoggedIn: false,
     user: null,
-    fetchError: ''
+    fetchError: null
 }
 
 export const reducer = (state = initialState, action) => {
@@ -28,24 +29,28 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: true,
+                fetchError: null,
                 isLoading: false
             }
         case FETCHING_USER_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
+                fetchError: null,
                 isLoading: false
             }
         case UPDATE_USER_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
+                fetchError: null,
                 isLoading: false
             }
         case CREATE_PLANT_SUCCESS:
             return {
                 ...state,
                 user: action.payload,
+                fetchError: null,
                 isLoading: false
             }
         case UPDATE_PLANT_SUCCESS:
@@ -60,6 +65,7 @@ export const reducer = (state = initialState, action) => {
                         return plant;
                     })
                 },
+                fetchError: null,
                 isLoading: false
             }
         case DELETE_PLANT_SUCCESS:
@@ -71,6 +77,7 @@ export const reducer = (state = initialState, action) => {
                         return plant.id != action.payload.id;
                     })
                 },
+                fetchError: null,
                 isLoading: false
             }
         case FETCH_ERROR:
@@ -81,6 +88,11 @@ export const reducer = (state = initialState, action) => {
             }
         case LOGOUT: 
             return initialState
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                fetchError: false
+            }
         default: 
             return state
     }

@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
 const Plants = (props) => {
   const [open, setOpen] = useState(false);
   const [plantToDelete, setPlantToDelete] = useState({});
-	const { user, getUser, deletePlant } = props;
+	const { isLoading, user, getUser, deletePlant } = props;
 	const classes = useStyles();
 	useEffect(() => {
 		getUser(localStorage.getItem("userId"));
@@ -213,7 +213,7 @@ const Plants = (props) => {
                         <Button onClick={handleClose} color="primary" className={classes.cancelButton}>
                           Cancel
                         </Button>
-                        <Button onClick={handleDelete} color="primary" autoFocus className={classes.deleteButton}>
+                        <Button onClick={handleDelete} color="primary" autoFocus className={classes.deleteButton} disabled={isLoading}>
                           Delete
                         </Button>
                       </DialogActions>
