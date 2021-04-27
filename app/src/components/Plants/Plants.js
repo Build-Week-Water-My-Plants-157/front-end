@@ -67,7 +67,7 @@ const Plants = (props) => {
 	const classes = useStyles();
 	useEffect(() => {
 		getUser(localStorage.getItem("userId"));
-	}, [user, getUser]);
+	}, [getUser]);
 
 	return (
 		<React.Fragment>
