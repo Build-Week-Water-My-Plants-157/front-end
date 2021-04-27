@@ -7,14 +7,14 @@ function Profile(props) {
 
   useEffect(() => {
     getUser(localStorage.getItem("userId"));
-  }, [user, getUser]);
+  }, [getUser]);
 
   return (
     <div>
-      <h1>{props.user.username}'s Profile</h1>
+      <h1>{props.user?.username}'s Profile</h1>
       <div>
-        <p> Username: {props.user.username}</p>
-        <p> Phone Number: {props.user.phone_number}</p>
+        <p> Username: {props.user?.username}</p>
+        <p> Phone Number: {props.user?.phone_number}</p>
       </div>
     </div>
   );
