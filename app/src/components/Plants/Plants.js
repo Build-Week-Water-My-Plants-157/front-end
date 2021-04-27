@@ -72,7 +72,6 @@ const Plants = (props) => {
 	return (
 		<React.Fragment>
 			<CssBaseline />
-			<ActionBar />
 			<main>
 				{/* Hero unit */}
 				<div className={classes.heroContent}>
@@ -167,7 +166,6 @@ const Plants = (props) => {
 					</Grid>
 				</Container>
 			</main>
-			<Footer />
 		</React.Fragment>
 	);
 };

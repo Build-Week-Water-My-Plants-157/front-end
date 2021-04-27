@@ -150,7 +150,6 @@ const Signup = () => {
 					</Grid>
 				</form>
 			</div>
-			<Footer />
 		</Container>
 	);
 };
