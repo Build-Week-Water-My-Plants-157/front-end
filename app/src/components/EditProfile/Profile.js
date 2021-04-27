@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getUser } from "../../actions";
 import ActionBar from "../ActionBar/ActionBar";
-import Footer from "../Footer/Footer";
 
 function Profile(props) {
 	const { getUser } = props;
@@ -13,6 +12,7 @@ function Profile(props) {
 
 	return (
 		<div>
+			<ActionBar />
 			<h1>{props.user?.username}'s Profile</h1>
 			<div>
 				<p> Username: {props.user?.username}</p>

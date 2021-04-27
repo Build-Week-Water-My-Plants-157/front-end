@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import ActionBar from "../ActionBar/ActionBar";
 //  ===================
 
 //
@@ -79,8 +80,10 @@ const CreatePlant = (props) => {
 
 	return (
 		<div>
-			<CssBaseline />
+			<ActionBar />
+
 			<Container component="main" maxWidth="xs">
+				<CssBaseline />
 				<div className={classes.paper}>
 					<Typography component="h1" variant="h5">
 						Plant Details

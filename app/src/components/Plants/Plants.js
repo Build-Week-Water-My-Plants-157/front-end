@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { getUser, logout } from "../../actions";
 import ActionBar from "../ActionBar/ActionBar";
-import Footer from "../Footer/Footer";
 
 //
 //
@@ -72,6 +71,7 @@ const Plants = (props) => {
 	return (
 		<React.Fragment>
 			<CssBaseline />
+			<ActionBar />
 			<main>
 				{/* Hero unit */}
 				<div className={classes.heroContent}>

@@ -7,13 +7,11 @@ import CreatePlant from "./components/CreatePlant/CreatePlant";
 import EditPlant from "./components/EditPlant/EditPlant";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Profile from "./components/EditProfile/Profile";
-import ActionBar from "./components/ActionBar/ActionBar";
 import Footer from "./components/Footer/Footer";
 
 function App() {
 	return (
 		<div className="App">
-			<ActionBar />
 			<Switch>
 				<ProtectedRoute exact path="/plants" component={Plants} />
 				<ProtectedRoute path="/plants/:id/edit" component={EditPlant} />
