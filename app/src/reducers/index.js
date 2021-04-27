@@ -65,6 +65,12 @@ export const reducer = (state = initialState, action) => {
         case DELETE_PLANT_SUCCESS:
             return {
                 ...state,
+                user: {
+                    ...state.user,
+                    plants: state.user.plants.filter((plant) => {
+                        return plant.id != action.payload.id;
+                    })
+                },
                 isLoading: false
             }
         case FETCH_ERROR:
