@@ -1,5 +1,4 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
-const axios = axiosWithAuth();
 
 export const START_FETCHING = "START_FETCHING";
 export const LOGIN = "LOGIN";
@@ -15,7 +14,7 @@ export const login = (loginCredentials) => (dispatch) => {
 	dispatch({
 		type: START_FETCHING,
 	});
-	axios.post('https://tt157-backend.herokuapp.com/api/auth/login', loginCredentials)
+	axiosWithAuth().post('https://tt157-backend.herokuapp.com/api/auth/login', loginCredentials)
 	.then((response) => {
 		console.log(response);
 		localStorage.setItem('token', response.data.token);
@@ -50,7 +49,7 @@ export const getUser = (id) => (dispatch) => {
 	dispatch({
 		type: START_FETCHING,
 	});
-	axios
+	axiosWithAuth()
 		.get(`https://tt157-backend.herokuapp.com/api/users/${id}`)
 		.then((response) => {
 			dispatch({
@@ -71,7 +70,7 @@ export const updateUser = (user) => (dispatch) => {
 	dispatch({
 		type: START_FETCHING,
 	});
-	axios
+	axiosWithAuth()
 		.put(`https://tt157-backend.herokuapp.com/api/users/${user.id}`, user)
 		.then((response) => {
 			dispatch({
@@ -92,11 +91,11 @@ export const createPlant = (plant) => (dispatch) => {
 	dispatch({
 		type: START_FETCHING,
 	});
-	axios
+	axiosWithAuth()
 		.post("https://tt157-backend.herokuapp.com/api/plants", plant)
 		.then((createdPlant) => {
 			const id = localStorage.getItem("userId");
-			axios
+			axiosWithAuth()
 				.post(`https://tt157-backend.herokuapp.com/api/users/${id}`, {
 					plant_id: createdPlant.data.data.id,
 				})
@@ -120,7 +119,7 @@ export const updatePlant = (plant) => (dispatch) => {
 	dispatch({
 		type: START_FETCHING,
 	});
-	axios
+	axiosWithAuth()
 		.put(`https://tt157-backend.herokuapp.com/api/plants/${plant.id}`, plant)
 		.then((response) => {
 			dispatch({
@@ -142,7 +141,7 @@ export const deletePlant = (plant) => (dispatch) => {
         type: START_FETCHING
     });
     const id = localStorage.getItem('userId');
-    axios.delete(`https://tt157-backend.herokuapp.com/api/users/${id}/plant`, {plant_id: plant.id})
+    axiosWithAuth().delete(`https://tt157-backend.herokuapp.com/api/users/${id}/plant`, {plant_id: plant.id})
     .then((response) => {
         dispatch({
             type: DELETE_PLANT_SUCCESS,

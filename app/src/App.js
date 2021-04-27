@@ -6,23 +6,25 @@ import Plants from "./components/Plants/Plants";
 import CreatePlant from "./components/CreatePlant/CreatePlant";
 import EditPlant from "./components/EditPlant/EditPlant";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import Profile from "./components/EditProfile/Profile";
 
 function App() {
-	return (
-		<div className="App">
-			<Switch>
-				<ProtectedRoute exact path="/plants" component={Plants} />
+  return (
+    <div className="App">
+      <Switch>
+        <ProtectedRoute exact path="/plants" component={Plants} />
         <ProtectedRoute path="/plants/:id/edit" component={EditPlant} />
-				<ProtectedRoute path="/plants/create" component={CreatePlant} />
-				<Route path="/signup">
-					<Signup />
-				</Route>
-				<Route exact path="/">
-					<Login />
-				</Route>
-			</Switch>
-		</div>
-	);
+        <ProtectedRoute path="/plants/create" component={CreatePlant} />
+        <ProtectedRoute path="/profile" component={Profile} />
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        <Route exact path="/">
+          <Login />
+        </Route>
+      </Switch>
+    </div>
+  );
 }
 
 export default App;
