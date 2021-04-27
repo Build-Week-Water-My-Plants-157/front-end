@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 
 // MUI imports
 import EcoIcon from "@material-ui/icons/Eco";
@@ -27,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ActionBar = (props) => {
 	const classes = useStyles();
-	const history = useHistory();
 
 	return (
 		<AppBar position="relative">
