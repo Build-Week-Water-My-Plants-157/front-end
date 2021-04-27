@@ -64,8 +64,8 @@ const useStyles = makeStyles((theme) => ({
 const NoPlants = (props) => {
 	const classes = useStyles();
 	return (
-		<Container className={classes.cardGrid} maxWidth="md">
-			You currently have no plants. Add a plant right now!
+		<Container maxWidth="md">
+			You currently have no plants. Add a plant by clicking the button above.
 		</Container>
 	);
 };
@@ -77,6 +77,8 @@ const Plants = (props) => {
 	// ! with the getUser, user becomes null if page is reloaded
 	useEffect(() => {
 		getUser(localStorage.getItem("userId"));
+		// ! console.logging res
+		console.log(user);
 	}, [getUser]);
 
 	return (
@@ -119,9 +121,8 @@ const Plants = (props) => {
 					</Container>
 				</div>
 				{/* End hero unit */}
-
 				{/* User Has no Plants? */}
-				{user.plants <= 0 ? (
+				{user?.plants.length === 0 ? (
 					<NoPlants />
 				) : (
 					<Container className={classes.cardGrid} maxWidth="md">
