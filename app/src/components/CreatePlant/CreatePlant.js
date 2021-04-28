@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createPlant } from "../../actions";
+import ActionBar from "../ActionBar/ActionBar";
 
 //
 // ====== MUI Imports ===
+import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -12,39 +14,32 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import ActionBar from "../ActionBar/ActionBar";
+import LocalFlorist from "@material-ui/icons/LocalFlorist";
+
 //  ===================
 
 //
 // ======== MUI Variables ====
 const useStyles = makeStyles((theme) => ({
 	paper: {
-		marginTop: theme.spacing(8),
+		marginTop: theme.spacing(2),
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		backgroundColor: "#c8e6c9",
-		padding: theme.spacing(4),
-		borderRadius: theme.spacing(3),
 	},
 	avatar: {
 		margin: theme.spacing(1),
-		backgroundColor: theme.palette.secondary.main,
+		backgroundColor: theme.palette.primary.dark,
 	},
 	form: {
 		width: "100%", // Fix IE 11 issue.
 		marginTop: theme.spacing(3),
 	},
-	submit: {
-		margin: theme.spacing(3, 0, 2),
-	},
-	cardGrid: {
-		paddingTop: theme.spacing(0),
-		paddingBottom: theme.spacing(8),
-		backgroundColor: "#c8e6c9",
-	},
 	input: {
 		marginTop: "10px",
+	},
+	submit: {
+		margin: theme.spacing(3, 0, 2),
 	},
 }));
 
@@ -86,6 +81,9 @@ const CreatePlant = (props) => {
 			<Container component="main" maxWidth="xs">
 				<CssBaseline />
 				<div className={classes.paper}>
+					<Avatar className={classes.avatar}>
+						<LocalFlorist />
+					</Avatar>
 					<Typography component="h1" variant="h5">
 						Plant Details
 					</Typography>
