@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { createPlant } from "../../actions";
 import ActionBar from "../ActionBar/ActionBar";
 
@@ -39,8 +39,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "10px",
 	},
 	submit: {
-		margin: theme.spacing(3, 0, 2),
+		marginTop: theme.spacing(3),
+		marginBottom: theme.spacing(2),
 	},
+	cancel: {},
 }));
 
 //
@@ -159,6 +161,17 @@ const CreatePlant = (props) => {
 							disabled={isLoading}
 						>
 							Add Plant
+						</Button>
+						<Button
+							type="submit"
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.cancel}
+							component={Link}
+							to="/plants"
+						>
+							Cancel
 						</Button>
 					</form>
 				</div>
