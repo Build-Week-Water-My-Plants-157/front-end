@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { getUser, updatePlant } from "../../actions";
 
 // MUI Imports
@@ -34,8 +34,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: "10px",
 	},
 	submit: {
-		margin: theme.spacing(3, 0, 2),
+		marginTop: theme.spacing(3),
+		marginBottom: theme.spacing(2),
 	},
+	cancel: {},
 }));
 
 const initialPlant = {
@@ -156,6 +158,17 @@ const EditPlant = (props) => {
 							disabled={isLoading}
 						>
 							Submit
+						</Button>
+						<Button
+							type="submit"
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.cancel}
+							component={Link}
+							to="/plants"
+						>
+							Cancel
 						</Button>
 					</form>
 				</div>
