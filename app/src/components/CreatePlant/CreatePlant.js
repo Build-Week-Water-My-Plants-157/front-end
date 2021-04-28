@@ -117,7 +117,7 @@ const CreatePlant = (props) => {
 		schema.isValid(plant).then((valid) => {
 			setSubmitDisabled(!valid);
 		});
-	}, [plant.name, plant.species, plant.h2o_frequency]);
+	}, [plant.nickname, plant.species, plant.h2o_frequency]);
 
 	//
 	//
