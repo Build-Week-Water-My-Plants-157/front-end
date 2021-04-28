@@ -7,6 +7,7 @@ import CreatePlant from "./components/CreatePlant/CreatePlant";
 import EditPlant from "./components/EditPlant/EditPlant";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Profile from "./components/EditProfile/Profile";
+import EditProfile from "./components/EditProfile/EditProfile";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <ProtectedRoute path="/plants/:id/edit" component={EditPlant} />
         <ProtectedRoute path="/plants/create" component={CreatePlant} />
         <ProtectedRoute path="/profile" component={Profile} />
+        <ProtectedRoute path="/editProfile" component={EditProfile} />)
         <Route path="/signup">
           <Signup />
         </Route>
