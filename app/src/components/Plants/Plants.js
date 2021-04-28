@@ -43,6 +43,14 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(2),
 		backgroundColor: "#c8e6c9",
 	},
+	noPlantCard: {
+		height: theme.spacing(14),
+		display: "flex",
+		flexDirection: "column",
+		padding: theme.spacing(4),
+		marginTop: theme.spacing(4),
+		backgroundColor: "#c8e6c9",
+	},
 	cardButton: {
 		color: theme.palette.primary.dark,
 		"&:hover": {
@@ -64,8 +72,15 @@ const useStyles = makeStyles((theme) => ({
 const NoPlants = (props) => {
 	const classes = useStyles();
 	return (
-		<Container maxWidth="md">
-			You currently have no plants. Add a plant by clicking the button above.
+		<Container className={classes.noPlantCard} maxWidth="md">
+			<Typography
+				component="h6"
+				variant="h6"
+				align="center"
+				color="textPrimary"
+			>
+				You currently have no plants. Add a plant by clicking the button above.
+			</Typography>
 		</Container>
 	);
 };
@@ -74,11 +89,8 @@ const Plants = (props) => {
 	const { user, getUser } = props;
 	const classes = useStyles();
 
-	// ! with the getUser, user becomes null if page is reloaded
 	useEffect(() => {
 		getUser(localStorage.getItem("userId"));
-		// ! console.logging res
-		console.log(user);
 	}, [getUser]);
 
 	return (
