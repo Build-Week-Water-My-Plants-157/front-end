@@ -5,7 +5,7 @@ import { createPlant } from "../../actions";
 import ActionBar from "../ActionBar/ActionBar";
 
 import * as yup from "yup";
-import schema from "../../validation/createPlant";
+import schema from "../../validation/plantForms";
 
 //
 // ====== MUI Imports ===

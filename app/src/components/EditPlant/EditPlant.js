@@ -5,7 +5,7 @@ import { getUser, updatePlant } from "../../actions";
 import ActionBar from "../ActionBar/ActionBar";
 
 import * as yup from "yup";
-import schema from "../../validation/createPlant";
+import schema from "../../validation/plantForms";
 
 // MUI Imports
 import Avatar from "@material-ui/core/Avatar";
@@ -138,7 +138,7 @@ const EditPlant = (props) => {
 
 					{/* ===== FORM FORM FORM FORM ========= */}
 					<form onSubmit={handleSubmit} className={classes.form} noValidate>
-						<Grid container spacing={2}>
+						<Grid container spacing={4}>
 							<Grid item xs={12}>
 								What do you call your plant?
 								<TextField
