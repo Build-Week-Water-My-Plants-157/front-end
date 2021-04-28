@@ -9,9 +9,16 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import Profile from "./components/EditProfile/Profile";
 import EditProfile from "./components/EditProfile/EditProfile";
 
-function App() {
+import Alert from '@material-ui/lab/Alert';
+import { connect } from "react-redux";
+
+function App(props) {
   return (
     <div className="App">
+      {
+        props.fetchError &&
+        <Alert severity="error">{props.fetchError}</Alert>
+      }
       <Switch>
         <ProtectedRoute exact path="/plants" component={Plants} />
         <ProtectedRoute path="/plants/:id/edit" component={EditPlant} />
@@ -29,4 +36,9 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isLoading: state.isLoading,
+  fetchError: state.fetchError
+});
+
+export default connect(mapStateToProps, {})(App);

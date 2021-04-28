@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../../actions';
+import { login, clearError } from '../../actions';
+
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const initialLoginCredentials = {
     username: '',
@@ -11,7 +14,11 @@ const initialLoginCredentials = {
 const Login = (props) => {
     const [loginCredentials, setLoginCredentials] = useState(initialLoginCredentials);
     const history = useHistory();
-    const { isLoggedIn, login } = props;
+    const { isLoading, isLoggedIn, login, clearError } = props;
+
+    useEffect(() => {
+		clearError();
+	}, []);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -53,12 +60,22 @@ const Login = (props) => {
                         onChange={handleChange}
                     />
                 </label>
-                <button>Login</button>
+                <button disabled={isLoading}>Login</button>
             </form>
             <h2>or</h2>
             <Link to="/signup">
 				<button>Sign Up</button>
 			</Link>
+            {
+                isLoading &&
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    padding="20px"
+                >
+                    <CircularProgress />
+                </Box>
+            }
         </div>
     );
 }
@@ -69,4 +86,4 @@ const mapStateToProps = (state) => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, {login})(Login);
+export default connect(mapStateToProps, {login, clearError})(Login);

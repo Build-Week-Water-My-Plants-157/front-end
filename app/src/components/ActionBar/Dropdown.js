@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function Dropdown() {
+export default function Dropdown(props) {
 	const classes = useStyles();
 	const history = useHistory();
 
 	const handleLogout = (event) => {
 		event.preventDefault();
-		logout();
+		props.logout();
 		history.push("/");
 	};
 
