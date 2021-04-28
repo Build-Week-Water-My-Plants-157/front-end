@@ -1,6 +1,7 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
 
 export const START_FETCHING = "START_FETCHING";
+export const SIGNUP = "SINGUP";
 export const LOGIN = "LOGIN";
 export const FETCHING_USER_SUCCESS = "FETCHING_USER_SUCCESS";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
@@ -20,7 +21,9 @@ export const signup = (signupCredentials, history) => (dispatch) => {
 		signupCredentials,
 	)
 	.then((response) => {
-		console.log(response)
+		dispatch({
+			type: SIGNUP
+		});
 		history.push('/');
 	})
 	.catch((error) => {

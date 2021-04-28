@@ -1,5 +1,6 @@
 import {
     START_FETCHING,
+    SIGNUP,
     LOGIN,
     FETCHING_USER_SUCCESS,
     UPDATE_USER_SUCCESS,
@@ -24,6 +25,11 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true
+            }
+        case SIGNUP:
+            return {
+                ...state,
+                isLoading: false
             }
         case LOGIN: 
             return {
