@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { signup, clearError } from "../../actions";
+import { connect } from "react-redux";
 
 // MUI Imports
 import Avatar from "@material-ui/core/Avatar";
@@ -14,7 +15,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Footer from "../Footer/Footer";
-import { connect } from "react-redux";
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const initialSignupCredentials = {
 	username: "",
@@ -142,6 +144,16 @@ const Signup = (props) => {
 					</Grid>
 				</form>
 			</div>
+			{
+				isLoading &&
+				<Box
+                    display="flex"
+                    justifyContent="center"
+					padding="20px"
+                >
+                    <CircularProgress />
+            	</Box>
+			}
 			<Footer />
 		</Container>
 	);

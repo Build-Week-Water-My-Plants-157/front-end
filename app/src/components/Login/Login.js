@@ -3,6 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login, clearError } from '../../actions';
 
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 const initialLoginCredentials = {
     username: '',
     password: ''
@@ -63,6 +66,16 @@ const Login = (props) => {
             <Link to="/signup">
 				<button>Sign Up</button>
 			</Link>
+            {
+                isLoading &&
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    padding="20px"
+                >
+                    <CircularProgress />
+                </Box>
+            }
         </div>
     );
 }
