@@ -4,6 +4,9 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { getUser, updatePlant } from "../../actions";
 import ActionBar from "../ActionBar/ActionBar";
 
+import * as yup from "yup";
+import schema from "../../validation/createPlant";
+
 // MUI Imports
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -48,12 +51,21 @@ const initialPlant = {
 	image: "",
 };
 
+const initialFormErrors = {
+	nickname: "",
+	species: "",
+	h2o_frequency: "",
+};
+
 const EditPlant = (props) => {
 	const [plant, setPlant] = useState(initialPlant);
 	const history = useHistory();
 	const { isLoading, user, getUser, updatePlant } = props;
 	const { id } = useParams();
 	const classes = useStyles();
+
+	const [formErrors, setFormErrors] = useState(initialFormErrors);
+	const [submitDisabled, setSubmitDisabled] = useState(true);
 
 	useEffect(() => {
 		if (!user) {
@@ -66,12 +78,42 @@ const EditPlant = (props) => {
 		}
 	}, [user, getUser, setPlant, id]);
 
-	const handleChange = (event) => {
+	// const handleChange = (event) => {
+	// 	setPlant({
+	// 		...plant,
+	// 		[event.target.name]: event.target.value,
+	// 	});
+	// };
+
+	const yupValidator = (event) => {
+		const { name, value, type } = event.target;
+		yup
+			.reach(schema, name)
+			.validate(value)
+			.then(() => {
+				setFormErrors({
+					...formErrors,
+					[name]: " ",
+				});
+			})
+			.catch((err) => {
+				setFormErrors({
+					...formErrors,
+					[name]: err.errors[0],
+				});
+			});
 		setPlant({
 			...plant,
 			[event.target.name]: event.target.value,
 		});
 	};
+
+	// ! useEffect for enabling/disabling submit button
+	useEffect(() => {
+		schema.isValid(plant).then((valid) => {
+			setSubmitDisabled(!valid);
+		});
+	}, [plant.name, plant.species, plant.h2o_frequency]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -105,10 +147,18 @@ const EditPlant = (props) => {
 									label="Nickname"
 									name="nickname"
 									value={plant.nickname}
-									onChange={handleChange}
+									onChange={yupValidator}
 									className={classes.input}
 									autoFocus
 								/>
+								{/* Plant name error message */}
+								<Typography
+									className="errorMessage"
+									variant="caption"
+									color="error"
+								>
+									{formErrors.nickname}
+								</Typography>
 							</Grid>
 
 							<Grid item xs={12}>
@@ -121,9 +171,16 @@ const EditPlant = (props) => {
 									label="e.g. Tomato, Rose, Hosta"
 									name="species"
 									value={plant.species}
-									onChange={handleChange}
+									onChange={yupValidator}
 									className={classes.input}
 								/>
+								<Typography
+									className="errorMessage"
+									variant="caption"
+									color="error"
+								>
+									{formErrors.species}
+								</Typography>
 							</Grid>
 
 							<Grid item xs={12}>
@@ -136,9 +193,16 @@ const EditPlant = (props) => {
 									label="e.g. 3 days, 1 week, 2 weeks"
 									name="h2o_frequency"
 									value={plant.h2o_frequency}
-									onChange={handleChange}
+									onChange={yupValidator}
 									className={classes.input}
 								/>
+								<Typography
+									className="errorMessage"
+									variant="caption"
+									color="error"
+								>
+									{formErrors.h2o_frequency}
+								</Typography>
 							</Grid>
 							<Grid item xs={12}>
 								Image URL
@@ -148,7 +212,12 @@ const EditPlant = (props) => {
 									id="image"
 									name="image"
 									value={plant.image}
-									onChange={handleChange}
+									onChange={(event) => {
+										setPlant({
+											...plant,
+											[event.target.name]: event.target.value,
+										});
+									}}
 									className={classes.input}
 								/>
 							</Grid>
@@ -159,7 +228,7 @@ const EditPlant = (props) => {
 							variant="contained"
 							color="primary"
 							className={classes.submit}
-							disabled={isLoading}
+							disabled={(isLoading, submitDisabled)}
 						>
 							Submit
 						</Button>

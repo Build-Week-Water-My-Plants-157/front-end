@@ -74,6 +74,7 @@ const CreatePlant = (props) => {
 	const [formErrors, setFormErrors] = useState(initialFormErrors);
 	const [submitDisabled, setSubmitDisabled] = useState(true);
 
+	//! I moved this handleChange inside yupValidator
 	// const handleChange = (event) => {
 	// 	setPlant({
 	// 		...plant,
@@ -83,7 +84,6 @@ const CreatePlant = (props) => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-
 		props.createPlant(plant);
 		history.push("/plants");
 	};
@@ -112,6 +112,7 @@ const CreatePlant = (props) => {
 		});
 	};
 
+	// ! useEffect for enabling/disabling submit button
 	useEffect(() => {
 		schema.isValid(plant).then((valid) => {
 			setSubmitDisabled(!valid);
