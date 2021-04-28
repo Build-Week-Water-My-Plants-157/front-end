@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout } from '../../actions';
+import { logout } from "../../actions";
 
 // MUI imports
 import EcoIcon from "@material-ui/icons/Eco";
@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ActionBar = (props) => {
 	const classes = useStyles();
-	const history = useHistory();
 
 	return (
 		<AppBar position="relative">
@@ -48,4 +47,9 @@ const ActionBar = (props) => {
 	);
 };
 
-export default connect(() => { return {} }, {logout})(ActionBar);
+export default connect(
+	() => {
+		return {};
+	},
+	{ logout },
+)(ActionBar);
