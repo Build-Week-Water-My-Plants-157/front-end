@@ -64,7 +64,7 @@ const CreatePlant = (props) => {
 	const { isLoading } = props;
 	const classes = useStyles();
 
-	const [isEmpty, setIsEmpty] = useState(true);
+	const [submitDisabled, setSubmitDisabled] = useState(true);
 	const simpleValidator = new SimpleReactValidator();
 
 	const handleChange = (event) => {
@@ -88,8 +88,9 @@ const CreatePlant = (props) => {
 
 	// Add Plant Enable/Disable button with validation
 	useEffect(() => {
-		if (simpleValidator.allValid()) {
-			setIsEmpty(!simpleValidator.allValid());
+		{
+			simpleValidator.allValid() &&
+				setSubmitDisabled(!simpleValidator.allValid());
 		}
 	}, [plant.nickname, plant.species, plant.h2o_frequency]);
 
@@ -217,7 +218,7 @@ const CreatePlant = (props) => {
 							variant="contained"
 							color="primary"
 							className={classes.submit}
-							disabled={(isLoading, isEmpty)}
+							disabled={(isLoading, submitDisabled)}
 						>
 							Add Plant
 						</Button>

@@ -14,8 +14,6 @@ import LocalFlorist from "@material-ui/icons/LocalFlorist";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import FormControl from "@material-ui/core/FormControl";
-import { Input } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
