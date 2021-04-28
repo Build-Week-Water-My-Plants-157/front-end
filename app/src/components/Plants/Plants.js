@@ -187,7 +187,11 @@ const Plants = (props) => {
 										{/* --------THESE ARE JUST PLACEHOLDER CARDS---------- */}
 										<CardMedia
 											className={classes.cardMedia}
-											image="https://picsum.photos/id/152/1600/900"
+											image={
+												card.image
+													? card.image
+													: "https://picsum.photos/id/152/1600/900"
+											}
 											title={card.nickname}
 										/>
 										<CardContent className={classes.cardContent}>
