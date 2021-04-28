@@ -62,6 +62,7 @@ const CreatePlant = (props) => {
 	const [plant, setPlant] = useState(initialPlant);
 	const history = useHistory();
 	const { isLoading } = props;
+	const classes = useStyles();
 
 	const [isEmpty, setIsEmpty] = useState(true);
 	const simpleValidator = new SimpleReactValidator();
@@ -73,12 +74,6 @@ const CreatePlant = (props) => {
 		});
 	};
 
-	useEffect(() => {
-		if (simpleValidator.allValid(plant)) {
-			setIsEmpty(!simpleValidator.allValid());
-		}
-	}, [plant.nickname, plant.species, plant.h2o_frequency]);
-
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (simpleValidator.allValid()) {
@@ -86,13 +81,21 @@ const CreatePlant = (props) => {
 			history.push("/plants");
 		} else {
 			simpleValidator.showMessages();
-			// rerender to show messages for the first time
-			this.forceUpdate();
+			// // rerender to show messages for the first time
+			// this.forceUpdate();
 		}
 	};
 
-	const classes = useStyles();
+	// Add Plant Enable/Disable button with validation
+	useEffect(() => {
+		if (simpleValidator.allValid()) {
+			setIsEmpty(!simpleValidator.allValid());
+		}
+	}, [plant.nickname, plant.species, plant.h2o_frequency]);
 
+	//
+	//
+	//
 	return (
 		<div>
 			<ActionBar />
@@ -124,7 +127,12 @@ const CreatePlant = (props) => {
 									className={classes.input}
 									onBlur={simpleValidator.showMessageFor("nickname")}
 								/>
-								<Typography variant="caption" color="error">
+								{/* Plant name error message */}
+								<Typography
+									className="errorMessage"
+									variant="caption"
+									color="error"
+								>
 									{simpleValidator.message(
 										"nickname",
 										plant.nickname,
@@ -147,7 +155,12 @@ const CreatePlant = (props) => {
 									className={classes.input}
 									onBlur={simpleValidator.showMessageFor("species")}
 								/>
-								<Typography variant="caption" color="error">
+								{/* Plant species error message */}
+								<Typography
+									className="errorMessage"
+									variant="caption"
+									color="error"
+								>
 									{simpleValidator.message(
 										"species",
 										plant.species,
@@ -170,7 +183,12 @@ const CreatePlant = (props) => {
 									className={classes.input}
 									onBlur={simpleValidator.showMessageFor("frequency")}
 								/>
-								<Typography variant="caption" color="error">
+								{/* Water frequency error message */}
+								<Typography
+									className="errorMessage"
+									variant="caption"
+									color="error"
+								>
 									{simpleValidator.message(
 										"frequency",
 										plant.h2o_frequency,
