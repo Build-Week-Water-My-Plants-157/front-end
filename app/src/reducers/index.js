@@ -29,6 +29,7 @@ export const reducer = (state = initialState, action) => {
         case SIGNUP:
             return {
                 ...state,
+                user: action.payload,
                 isLoading: false
             }
         case LOGIN: 

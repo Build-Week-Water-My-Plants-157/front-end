@@ -21,10 +21,13 @@ export const signup = (signupCredentials, history) => (dispatch) => {
 		signupCredentials,
 	)
 	.then((response) => {
+		console.log('response', response)
+		localStorage.setItem('userId', response.data.user.id);
 		dispatch({
-			type: SIGNUP
+			type: SIGNUP,
+			payload: response.data.user
 		});
-		history.push('/');
+		history.push('/plants');
 	})
 	.catch((error) => {
 		dispatch({
