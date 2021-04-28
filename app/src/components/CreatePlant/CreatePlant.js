@@ -4,7 +4,8 @@ import { Link, useHistory } from "react-router-dom";
 import { createPlant } from "../../actions";
 import ActionBar from "../ActionBar/ActionBar";
 
-import SimpleReactValidator from "simple-react-validator";
+import * as yup from "yup";
+import schema from "../../validation/createPlant";
 
 //
 // ====== MUI Imports ===
@@ -58,41 +59,64 @@ const initialPlant = {
 	image: "",
 };
 
+const initialFormErrors = {
+	nickname: "",
+	species: "",
+	h2o_frequency: "",
+};
+
 const CreatePlant = (props) => {
 	const [plant, setPlant] = useState(initialPlant);
 	const history = useHistory();
 	const { isLoading } = props;
 	const classes = useStyles();
 
+	const [formErrors, setFormErrors] = useState(initialFormErrors);
 	const [submitDisabled, setSubmitDisabled] = useState(true);
-	const simpleValidator = new SimpleReactValidator();
 
-	const handleChange = (event) => {
+	// const handleChange = (event) => {
+	// 	setPlant({
+	// 		...plant,
+	// 		[event.target.name]: event.target.value,
+	// 	});
+	// };
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+
+		props.createPlant(plant);
+		history.push("/plants");
+	};
+
+	// Yup validator
+	const yupValidator = (event) => {
+		const { name, value, type } = event.target;
+		yup
+			.reach(schema, name)
+			.validate(value)
+			.then(() => {
+				setFormErrors({
+					...formErrors,
+					[name]: " ",
+				});
+			})
+			.catch((err) => {
+				setFormErrors({
+					...formErrors,
+					[name]: err.errors[0],
+				});
+			});
 		setPlant({
 			...plant,
 			[event.target.name]: event.target.value,
 		});
 	};
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		if (simpleValidator.allValid()) {
-			props.createPlant(plant);
-			history.push("/plants");
-		} else {
-			simpleValidator.showMessages();
-			// // rerender to show messages for the first time
-			// this.forceUpdate();
-		}
-	};
-
-	// Add Plant Enable/Disable button with validation
 	useEffect(() => {
-		{
-			simpleValidator.allValid() &&
-				setSubmitDisabled(!simpleValidator.allValid());
-		}
-	}, [plant.nickname, plant.species, plant.h2o_frequency]);
+		schema.isValid(plant).then((valid) => {
+			setSubmitDisabled(!valid);
+		});
+	}, [plant.name, plant.species, plant.h2o_frequency]);
 
 	//
 	//
@@ -124,9 +148,8 @@ const CreatePlant = (props) => {
 									label="Nickname"
 									name="nickname"
 									value={plant.nickname}
-									onChange={handleChange}
+									onChange={yupValidator}
 									className={classes.input}
-									onBlur={simpleValidator.showMessageFor("nickname")}
 								/>
 								{/* Plant name error message */}
 								<Typography
@@ -134,11 +157,7 @@ const CreatePlant = (props) => {
 									variant="caption"
 									color="error"
 								>
-									{simpleValidator.message(
-										"nickname",
-										plant.nickname,
-										"required|alpha_num_space|min:2|max:15",
-									)}
+									{formErrors.nickname}
 								</Typography>
 							</Grid>
 
@@ -152,9 +171,8 @@ const CreatePlant = (props) => {
 									label="e.g. Tomato, Rose, Hosta "
 									name="species"
 									value={plant.species}
-									onChange={handleChange}
+									onChange={yupValidator}
 									className={classes.input}
-									onBlur={simpleValidator.showMessageFor("species")}
 								/>
 								{/* Plant species error message */}
 								<Typography
@@ -162,11 +180,7 @@ const CreatePlant = (props) => {
 									variant="caption"
 									color="error"
 								>
-									{simpleValidator.message(
-										"species",
-										plant.species,
-										"required|alpha_num_space|min:2|max:15",
-									)}
+									{formErrors.species}
 								</Typography>
 							</Grid>
 
@@ -180,9 +194,8 @@ const CreatePlant = (props) => {
 									label="e.g. 3 days, 1 week, 2 weeks"
 									id="h2o_frequency"
 									value={plant.h2o_frequency}
-									onChange={handleChange}
+									onChange={yupValidator}
 									className={classes.input}
-									onBlur={simpleValidator.showMessageFor("frequency")}
 								/>
 								{/* Water frequency error message */}
 								<Typography
@@ -190,11 +203,7 @@ const CreatePlant = (props) => {
 									variant="caption"
 									color="error"
 								>
-									{simpleValidator.message(
-										"frequency",
-										plant.h2o_frequency,
-										"required|alpha_num_space|min:2|max:15",
-									)}
+									{formErrors.h2o_frequency}
 								</Typography>
 							</Grid>
 
@@ -206,7 +215,12 @@ const CreatePlant = (props) => {
 									name="image"
 									id="image"
 									value={plant.image}
-									onChange={handleChange}
+									onChange={(event) => {
+										setPlant({
+											...plant,
+											[event.target.name]: event.target.value,
+										});
+									}}
 									className={classes.input}
 								/>
 							</Grid>
