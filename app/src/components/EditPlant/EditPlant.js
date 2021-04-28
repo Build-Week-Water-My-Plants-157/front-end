@@ -48,7 +48,7 @@ const initialPlant = {
 const EditPlant = (props) => {
     const [plant, setPlant] = useState(initialPlant);
 	const history = useHistory();
-    const { user, getUser, updatePlant } = props;
+    const { isLoading, user, getUser, updatePlant } = props;
     const { id } = useParams();
     const classes = useStyles();
 
@@ -149,6 +149,7 @@ const EditPlant = (props) => {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            disabled={isLoading}
                         >
                             Submit
                         </Button>

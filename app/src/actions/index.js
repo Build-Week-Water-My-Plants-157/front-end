@@ -9,8 +9,30 @@ export const UPDATE_PLANT_SUCCESS = "UPDATE_PLANT_SUCCESS";
 export const DELETE_PLANT_SUCCESS = "DELETE_PLANT_SUCCESS";
 export const FETCH_ERROR = "FETCH_ERROR";
 export const LOGOUT = "LOGOUT";
+export const CLEAR_ERROR = "CLEAR_ERROR";
+
+export const signup = (signupCredentials, history) => (dispatch) => {
+	dispatch({
+		type: START_FETCHING,
+	});
+	axiosWithAuth().post(
+		"https://tt157-backend.herokuapp.com/api/auth/register",
+		signupCredentials,
+	)
+	.then((response) => {
+		console.log(response)
+		history.push('/');
+	})
+	.catch((error) => {
+		dispatch({
+			type: FETCH_ERROR,
+			payload: error.response.data.message,
+		});
+	});
+}
 
 export const login = (loginCredentials) => (dispatch) => {
+	console.log('login credentials', loginCredentials)
 	dispatch({
 		type: START_FETCHING,
 	});
@@ -37,10 +59,9 @@ export const login = (loginCredentials) => (dispatch) => {
 		});
 	})
 	.catch((error) => {
-		console.log(error);
 		dispatch({
 			type: FETCH_ERROR,
-			payload: error.message,
+			payload: error.response.data.message,
 		});
 	});
 }
@@ -97,7 +118,7 @@ export const createPlant = (plant) => (dispatch) => {
 			const id = localStorage.getItem("userId");
 			axiosWithAuth()
 				.post(`https://tt157-backend.herokuapp.com/api/users/${id}`, {
-					plant_id: createdPlant.data.data.id,
+					plant_id: createdPlant.data.id,
 				})
 				.then((updatedUser) => {
 					dispatch({
@@ -141,11 +162,14 @@ export const deletePlant = (plant) => (dispatch) => {
         type: START_FETCHING
     });
     const id = localStorage.getItem('userId');
-    axiosWithAuth().delete(`https://tt157-backend.herokuapp.com/api/users/${id}/plant`, {plant_id: plant.id})
+	const data = {
+		plant_id: plant.id
+	}
+    axiosWithAuth().delete(`https://tt157-backend.herokuapp.com/api/users/${id}/plant`, {data: data})
     .then((response) => {
         dispatch({
             type: DELETE_PLANT_SUCCESS,
-            payload: response.data
+            payload: plant
         });
     })
     .catch((error) => {
@@ -161,5 +185,11 @@ export const logout = () => (dispatch) => {
 	localStorage.clear();
 	dispatch({
 		type: LOGOUT
+	});
+}
+
+export const clearError = () => (dispatch) => {
+	dispatch({
+		type: CLEAR_ERROR
 	});
 }

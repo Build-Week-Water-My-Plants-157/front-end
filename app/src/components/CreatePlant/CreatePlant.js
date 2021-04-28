@@ -62,6 +62,7 @@ const initialPlant = {
 const CreatePlant = (props) => {
 	const [plant, setPlant] = useState(initialPlant);
 	const history = useHistory();
+	const { isLoading } = props;
 
 	const handleChange = (event) => {
 		setPlant({
@@ -154,6 +155,7 @@ const CreatePlant = (props) => {
 						variant="contained"
 						color="primary"
 						className={classes.submit}
+						disabled={isLoading}
 					>
 						Add Plant
 					</Button>

@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from '../../actions';
 
 // MUI imports
 import EcoIcon from "@material-ui/icons/Eco";
@@ -40,10 +42,10 @@ const ActionBar = (props) => {
 				</Container>
 
 				{/* Dropdown Menu */}
-				<Dropdown />
+				<Dropdown logout={props.logout} />
 			</Toolbar>
 		</AppBar>
 	);
 };
 
-export default ActionBar;
+export default connect(() => { return {} }, {logout})(ActionBar);
