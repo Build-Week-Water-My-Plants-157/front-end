@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { getUser, updatePlant } from "../../actions";
+import ActionBar from "../ActionBar/ActionBar";
 
 // MUI Imports
 import Avatar from "@material-ui/core/Avatar";
@@ -13,7 +14,8 @@ import LocalFlorist from "@material-ui/icons/LocalFlorist";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import ActionBar from "../ActionBar/ActionBar";
+import FormControl from "@material-ui/core/FormControl";
+import { Input } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -91,6 +93,8 @@ const EditPlant = (props) => {
 					<Typography component="h1" variant="h5">
 						Edit Plant
 					</Typography>
+
+					{/* ===== FORM FORM FORM FORM ========= */}
 					<form onSubmit={handleSubmit} className={classes.form} noValidate>
 						<Grid container spacing={2}>
 							<Grid item xs={12}>
@@ -108,6 +112,7 @@ const EditPlant = (props) => {
 									autoFocus
 								/>
 							</Grid>
+
 							<Grid item xs={12}>
 								What species is your plant?
 								<TextField
@@ -122,6 +127,7 @@ const EditPlant = (props) => {
 									className={classes.input}
 								/>
 							</Grid>
+
 							<Grid item xs={12}>
 								How long until it needs to be watered?
 								<TextField

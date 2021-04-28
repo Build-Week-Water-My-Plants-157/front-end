@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { createPlant } from "../../actions";
 import ActionBar from "../ActionBar/ActionBar";
+
+import SimpleReactValidator from "simple-react-validator";
 
 //
 // ====== MUI Imports ===
@@ -15,7 +17,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import LocalFlorist from "@material-ui/icons/LocalFlorist";
-
 //  ===================
 
 //
@@ -62,6 +63,9 @@ const CreatePlant = (props) => {
 	const history = useHistory();
 	const { isLoading } = props;
 
+	const [isEmpty, setIsEmpty] = useState(true);
+	const simpleValidator = new SimpleReactValidator();
+
 	const handleChange = (event) => {
 		setPlant({
 			...plant,
@@ -69,11 +73,24 @@ const CreatePlant = (props) => {
 		});
 	};
 
+	useEffect(() => {
+		if (simpleValidator.allValid(plant)) {
+			setIsEmpty(!simpleValidator.allValid());
+		}
+	}, [plant.nickname, plant.species, plant.h2o_frequency]);
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		props.createPlant(plant);
-		history.push("/plants");
+		if (simpleValidator.allValid()) {
+			props.createPlant(plant);
+			history.push("/plants");
+		} else {
+			simpleValidator.showMessages();
+			// rerender to show messages for the first time
+			this.forceUpdate();
+		}
 	};
+
 	const classes = useStyles();
 
 	return (
@@ -92,7 +109,7 @@ const CreatePlant = (props) => {
 
 					{/* FORM --- FORM --- FORM --- */}
 					<form className={classes.form} onSubmit={handleSubmit} noValidate>
-						<Grid container spacing={2}>
+						<Grid container spacing={4}>
 							<Grid item xs={12}>
 								What do you call your plant?
 								<TextField
@@ -105,7 +122,15 @@ const CreatePlant = (props) => {
 									value={plant.nickname}
 									onChange={handleChange}
 									className={classes.input}
+									onBlur={simpleValidator.showMessageFor("nickname")}
 								/>
+								<Typography variant="caption" color="error">
+									{simpleValidator.message(
+										"nickname",
+										plant.nickname,
+										"required|alpha_num_space|min:2|max:15",
+									)}
+								</Typography>
 							</Grid>
 
 							<Grid item xs={12}>
@@ -120,7 +145,15 @@ const CreatePlant = (props) => {
 									value={plant.species}
 									onChange={handleChange}
 									className={classes.input}
+									onBlur={simpleValidator.showMessageFor("species")}
 								/>
+								<Typography variant="caption" color="error">
+									{simpleValidator.message(
+										"species",
+										plant.species,
+										"required|alpha_num_space|min:2|max:15",
+									)}
+								</Typography>
 							</Grid>
 
 							<Grid item xs={12}>
@@ -135,7 +168,15 @@ const CreatePlant = (props) => {
 									value={plant.h2o_frequency}
 									onChange={handleChange}
 									className={classes.input}
+									onBlur={simpleValidator.showMessageFor("frequency")}
 								/>
+								<Typography variant="caption" color="error">
+									{simpleValidator.message(
+										"frequency",
+										plant.h2o_frequency,
+										"required|alpha_num_space|min:2|max:15",
+									)}
+								</Typography>
 							</Grid>
 
 							<Grid item xs={12}>
@@ -158,7 +199,7 @@ const CreatePlant = (props) => {
 							variant="contained"
 							color="primary"
 							className={classes.submit}
-							disabled={isLoading}
+							disabled={(isLoading, isEmpty)}
 						>
 							Add Plant
 						</Button>
