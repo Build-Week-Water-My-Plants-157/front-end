@@ -19,7 +19,7 @@ function App(props) {
         <ProtectedRoute exact path="/plants" component={Plants} />
         <ProtectedRoute path="/plants/:id/edit" component={EditPlant} />
         <ProtectedRoute path="/plants/create" component={CreatePlant} />
-        <ProtectedRoute path="/profile" component={EditProfile} />)
+        <ProtectedRoute path="/profile" component={EditProfile} />
         <Route path="/signup">
           <Signup />
         </Route>

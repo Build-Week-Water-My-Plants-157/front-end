@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { updateUser } from "../../actions";
+import { connect } from "react-redux";
 
 const initialState = {
   username: "",
   phone_number: "",
 };
 
-export default function EditProfile() {
-  const [values, setValues] = useState(initialState);
+const EditProfile = (props) => {
+  const [user, setUser] = useState(initialState);
+  const history = useHistory();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(values);
-    setValues(initialState);
+    props.updateUser(props.user, user);
+    history.push("/plants");
   };
 
   const handleChange = (event) => {
-    setValues({
-      ...values,
+    setUser({
+      ...user,
       [event.target.name]: event.target.value,
     });
   };
@@ -31,7 +34,7 @@ export default function EditProfile() {
           <input
             name="username"
             type="text"
-            value={values.username}
+            value={user.username}
             onChange={handleChange}
           />
         </label>
@@ -40,7 +43,7 @@ export default function EditProfile() {
           <input
             name="phone_number"
             type="text"
-            value={values.phone_number}
+            value={user.phone_number}
             onChange={handleChange}
           />
         </label>
@@ -48,4 +51,10 @@ export default function EditProfile() {
       </div>
     </form>
   );
-}
+};
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps, { updateUser })(EditProfile);
