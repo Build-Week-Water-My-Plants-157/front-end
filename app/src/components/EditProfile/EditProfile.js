@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 
 const initialState = {
   username: "",
-  password: "",
   phone_number: "",
 };
 
@@ -15,7 +14,7 @@ const EditProfile = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    props.updateUser(user);
+    props.updateUser(user, user);
     history.push("/plants");
   };
 
@@ -36,15 +35,6 @@ const EditProfile = (props) => {
             name="username"
             type="text"
             value={user.username}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            name="password"
-            type="text"
-            value={user.password}
             onChange={handleChange}
           />
         </label>
