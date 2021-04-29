@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { logout } from "../../actions";
 
 //
@@ -11,6 +11,7 @@ import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { makeStyles } from "@material-ui/core/styles";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 //
 
 const useStyles = makeStyles((theme) => ({
@@ -34,16 +35,6 @@ export default function Dropdown(props) {
 		event.preventDefault();
 		props.logout();
 		history.push("/");
-	};
-
-	const handleProfile = (event) => {
-		event.preventDefault();
-		history.push("/profile");
-	};
-
-	const handleViewPlants = (event) => {
-		event.preventDefault();
-		history.push("/plants");
 	};
 
 	//
@@ -90,6 +81,7 @@ export default function Dropdown(props) {
 					onClick={handleToggle}
 					variant="outlined"
 				>
+					<ArrowDropDownIcon />
 					Menu
 				</Button>
 				<Popper
@@ -116,14 +108,16 @@ export default function Dropdown(props) {
 									>
 										<MenuItem
 											className={classes.menuItem}
-											onClick={handleViewPlants}
+											component={Link}
+											to="/plants"
 										>
 											View Plants
 										</MenuItem>
 
 										<MenuItem
 											className={classes.menuItem}
-											onClick={handleProfile}
+											component={Link}
+											to="/profile"
 										>
 											Edit Profile
 										</MenuItem>
