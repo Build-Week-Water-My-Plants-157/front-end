@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: theme.spacing(3),
 		marginBottom: theme.spacing(2),
 	},
-	cancel: {},
+	cancel: { backgroundColor: theme.palette.primary.light },
 }));
 
 //
