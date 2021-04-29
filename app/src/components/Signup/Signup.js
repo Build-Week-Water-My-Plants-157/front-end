@@ -15,8 +15,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Footer from "../Footer/Footer";
-import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const initialSignupCredentials = {
 	username: "",
@@ -144,23 +144,18 @@ const Signup = (props) => {
 					</Grid>
 				</form>
 			</div>
-			{
-				isLoading &&
-				<Box
-                    display="flex"
-                    justifyContent="center"
-					padding="20px"
-                >
-                    <CircularProgress />
-            	</Box>
-			}
+			{isLoading && (
+				<Box display="flex" justifyContent="center" padding="20px">
+					<CircularProgress />
+				</Box>
+			)}
 			<Footer />
 		</Container>
 	);
 };
 
 const mapStateToProps = (state) => ({
-	isLoading: state.isLoading
-})
+	isLoading: state.isLoading,
+});
 
-export default connect(mapStateToProps, {signup, clearError})(Signup);
+export default connect(mapStateToProps, { signup, clearError })(Signup);

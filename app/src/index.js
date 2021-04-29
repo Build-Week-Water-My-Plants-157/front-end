@@ -40,6 +40,7 @@ ReactDOM.render(
 			</ThemeProvider>
 		</Provider>
 	</Router>,
+
 	document.getElementById("root"),
 );
 

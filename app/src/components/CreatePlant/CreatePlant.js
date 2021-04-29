@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import ActionBar from "../ActionBar/ActionBar";
 //  ===================
 
 //
@@ -43,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: "#c8e6c9",
 	},
 	input: {
-		marginTop: "10px"
-	}
+		marginTop: "10px",
+	},
 }));
 
 //
@@ -79,89 +80,92 @@ const CreatePlant = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Container component="main" maxWidth="xs">
-			<CssBaseline />
+		<div>
+			<ActionBar />
 
-			<div className={classes.paper}>
-				<Typography component="h1" variant="h5">
-					Plant Details
-				</Typography>
+			<Container component="main" maxWidth="xs">
+				<CssBaseline />
+				<div className={classes.paper}>
+					<Typography component="h1" variant="h5">
+						Plant Details
+					</Typography>
 
-				{/* FORM --- FORM --- FORM --- */}
-				<form className={classes.form} onSubmit={handleSubmit} noValidate>
-					<Grid container spacing={2}>
-						<Grid item xs={12}>
-							What do you call your plant?
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								id="nickname"
-								label="Nickname"
-								name="nickname"
-								value={plant.nickname}
-								onChange={handleChange}
-								className={classes.input}
-							/>
+					{/* FORM --- FORM --- FORM --- */}
+					<form className={classes.form} onSubmit={handleSubmit} noValidate>
+						<Grid container spacing={2}>
+							<Grid item xs={12}>
+								What do you call your plant?
+								<TextField
+									variant="outlined"
+									required
+									fullWidth
+									id="nickname"
+									label="Nickname"
+									name="nickname"
+									value={plant.nickname}
+									onChange={handleChange}
+									className={classes.input}
+								/>
+							</Grid>
+
+							<Grid item xs={12}>
+								What species is your plant?
+								<TextField
+									variant="outlined"
+									required
+									fullWidth
+									id="species"
+									label="e.g. Tomato, Rose, Hosta "
+									name="species"
+									value={plant.species}
+									onChange={handleChange}
+									className={classes.input}
+								/>
+							</Grid>
+
+							<Grid item xs={12}>
+								How long until it needs to be watered?
+								<TextField
+									variant="outlined"
+									required
+									fullWidth
+									name="h2o_frequency"
+									label="e.g. 3 days, 1 week, 2 weeks"
+									id="h2o_frequency"
+									value={plant.h2o_frequency}
+									onChange={handleChange}
+									className={classes.input}
+								/>
+							</Grid>
+
+							<Grid item xs={12}>
+								Image URL
+								<TextField
+									variant="outlined"
+									fullWidth
+									name="image"
+									id="image"
+									value={plant.image}
+									onChange={handleChange}
+									className={classes.input}
+								/>
+							</Grid>
 						</Grid>
 
-						<Grid item xs={12}>
-							What species is your plant?
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								id="species"
-								label="e.g. Tomato, Rose, Hosta "
-								name="species"
-								value={plant.species}
-								onChange={handleChange}
-								className={classes.input}
-							/>
-						</Grid>
-
-						<Grid item xs={12}>
-							How long until it needs to be watered?
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								name="h2o_frequency"
-								label="e.g. 3 days, 1 week, 2 weeks"
-								id="h2o_frequency"
-								value={plant.h2o_frequency}
-								onChange={handleChange}
-								className={classes.input}
-							/>
-						</Grid>
-
-						<Grid item xs={12}>
-							Image URL
-							<TextField
-								variant="outlined"
-								fullWidth
-								name="image"
-								id="image"
-								value={plant.image}
-								onChange={handleChange}
-								className={classes.input}
-							/>
-						</Grid>
-					</Grid>
-
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.submit}
-						disabled={isLoading}
-					>
-						Add Plant
-					</Button>
-				</form>
-			</div>
-		</Container>
+						<Button
+							type="submit"
+							fullWidth
+							variant="contained"
+							color="primary"
+							className={classes.submit}
+							disabled={isLoading}
+						>
+							Add Plant
+						</Button>
+					</form>
+				</div>
+			</Container>
+		</div>
 	);
 };
 const mapStateToProps = (state) => ({
