@@ -149,7 +149,6 @@ const Signup = (props) => {
 					<CircularProgress />
 				</Box>
 			)}
-			<Footer />
 		</Container>
 	);
 };

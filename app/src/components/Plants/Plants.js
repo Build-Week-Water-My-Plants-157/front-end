@@ -51,11 +51,12 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: "#c8e6c9",
 	},
 	noPlantCard: {
-		height: theme.spacing(14),
+		height: theme.spacing(20),
 		display: "flex",
 		flexDirection: "column",
 		padding: theme.spacing(4),
 		marginTop: theme.spacing(4),
+		borderRadius: theme.spacing(4),
 		backgroundColor: "#c8e6c9",
 	},
 	cardButton: {
@@ -90,17 +91,26 @@ const useStyles = makeStyles((theme) => ({
 //
 //
 
-const NoPlants = (props) => {
+const NoPlants = ({ user }) => {
 	const classes = useStyles();
 	return (
 		<Container className={classes.noPlantCard} maxWidth="md">
+			<Typography
+				component="h5"
+				variant="h5"
+				align="center"
+				color="textPrimary"
+				gutterBottom
+			>
+				Welcome {user.username}!
+			</Typography>
 			<Typography
 				component="h6"
 				variant="h6"
 				align="center"
 				color="textPrimary"
 			>
-				You currently have no plants. Add a plant by clicking the button above.
+				You currently have no plants. Add a plant by clicking Add Plant button.
 			</Typography>
 		</Container>
 	);
@@ -161,7 +171,10 @@ const Plants = (props) => {
 						<div className={classes.heroButtons}>
 							<Grid container spacing={2} justify="center">
 								<Grid item>
-									<Link href="/plants/create">
+									<Link
+										href="/plants/create"
+										style={{ textDecoration: "none" }}
+									>
 										<Button variant="contained" color="primary">
 											Add Plant
 										</Button>
@@ -178,7 +191,7 @@ const Plants = (props) => {
 							<CircularProgress />
 						</Box>
 					)}
-					{user?.plants.length === 0 && <NoPlants />}
+					{user?.plants.length === 0 && <NoPlants user={user} />}
 					{!isLoading && (
 						<Grid container spacing={4}>
 							{user?.plants.map((card, index) => (
