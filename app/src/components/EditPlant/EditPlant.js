@@ -88,7 +88,7 @@ const EditPlant = (props) => {
 
 	// Yup Validator
 	const yupValidator = (event) => {
-		const { name, value, type } = event.target;
+		const { name, value } = event.target;
 		yup
 			.reach(schema, name)
 			.validate(value)
@@ -115,7 +115,7 @@ const EditPlant = (props) => {
 		schema.isValid(plant).then((valid) => {
 			setSubmitDisabled(!valid);
 		});
-	}, [plant.nickname, plant.species, plant.h2o_frequency]);
+	}, [plant]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();

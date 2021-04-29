@@ -81,7 +81,7 @@ export const reducer = (state = initialState, action) => {
                 user: {
                     ...state.user,
                     plants: state.user.plants.filter((plant) => {
-                        return plant.id != action.payload.id;
+                        return plant.id !== action.payload.id;
                     })
                 },
                 fetchError: null,

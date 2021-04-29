@@ -18,7 +18,7 @@ const Login = (props) => {
 
     useEffect(() => {
 		clearError();
-	}, []);
+	}, [clearError]);
 
     useEffect(() => {
         if (isLoggedIn) {

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { logout } from "../../actions";
 
 //
 import Button from "@material-ui/core/Button";
