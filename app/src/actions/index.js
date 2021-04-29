@@ -94,11 +94,12 @@ export const getUser = (id) => (dispatch) => {
 };
 
 export const updateUser = (user) => (dispatch) => {
+	const id = localStorage.getItem("userId");
 	dispatch({
 		type: START_FETCHING,
 	});
 	axiosWithAuth()
-		.put(`https://tt157-backend.herokuapp.com/api/users/${user.id}`, user)
+		.put(`https://tt157-backend.herokuapp.com/api/users/${id}`, user)
 		.then((response) => {
 			dispatch({
 				type: UPDATE_USER_SUCCESS,
