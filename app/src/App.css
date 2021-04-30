@@ -1,3 +1,13 @@
 a {
     text-decoration: none;
 }
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.app-content {
+    flex: 1 1 auto;
+    padding-bottom: 50px;
+}
