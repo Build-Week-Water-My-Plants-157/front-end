@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { signup, clearError } from "../../actions";
 import { connect } from "react-redux";
-import * as yup from 'yup';
+import * as yup from "yup";
 
 // MUI Imports
 import Avatar from "@material-ui/core/Avatar";
@@ -30,47 +30,41 @@ const initialFormErrors = {
 	phone_number: 'required',
 };
 
+const formSchema = yup.object().shape({
+	username: yup.string().required('required'),
+	password: yup.string().required('required'),
+});
+
 const Signup = (props) => {
 	const [signupCredentials, setSignupCredentials] = useState(initialSignupCredentials);
 	// const [formValues, setFormValues] = useState(initialSignupCredentials);
 	const [formErrors, setFormErrors] = useState(initialFormErrors);
 	const [disabled, setDisabled] = useState(true);
-	const { isLoading, signup, clearError } = props;
+	const { isLoading, signup } = props;
 	const history = useHistory();
 
-	useEffect(() => {
-		clearError();
-	}, []);
+	// useEffect(() => {
+	// 	clearError();
+	// }, []);
 
-	// const handleChange = (event) => {
-	// 	setSignupCredentials({
-	// 		...signupCredentials,
-	// 		[event.target.name]: event.target.value,
-	// 	});
-	// };
-
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		signup(signupCredentials, history);
+	const handleChange = (event) => {
+		setSignupCredentials({
+			...signupCredentials,
+			[event.target.username]: event.target.value,
+		});
 	};
 
-	// Validators here 
-
-	let formSchema = yup.object().shape({
-		username: yup.string().required('required'),
-		password: yup.string().required('required'),
-	});
-
-	const yupValidator = (name, value) => {
+	const yupValidator = (event) => {
+		const {name, value} = event.target;
 		yup
 			.reach(formSchema, name)
 			.validate(value)
 			.then(() => { setFormErrors({ ...formErrors, [name]: '' }) })
-			.catch(err => { setFormErrors({ ...formErrors, [name]: err.errors[0] }) })
-		// setFormValues({
-		// 	...signupCredentials,
-		// 	[name]: value
-		// })
+			.catch(err => { setFormErrors({ ...formErrors, [name]: err.errors[0], }) })
+			setSignupCredentials({
+			...signupCredentials,
+			[name]: value,
+		})
 	};
 
 	useEffect(() => {
@@ -78,7 +72,11 @@ const Signup = (props) => {
 			setDisabled(!valid);
 		});
 	}, [signupCredentials.username, signupCredentials.password, signupCredentials.phone_number]);
-
+	
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		signup(signupCredentials, history);
+	};
 
 	// Styles using a MUI Theme 
 	const useStyles = makeStyles((theme) => ({
