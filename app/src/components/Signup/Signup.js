@@ -46,20 +46,13 @@ const Signup = (props) => {
 	// 	clearError();
 	// }, [clearError]);
 
-	// const handleChange = (event) => {
-	// 	setSignupCredentials({
-	// 		...signupCredentials,
-	// 		[event.target.username]: event.target.value,
-	// 	});
-	// };
-
 	const handleChange = (event) => {
-        const { name, value } = event.target;
-        setSignupCredentials({
-            ...signupCredentials,
-            [name]: value,
-        });
-    };
+		const { name, value } = event.target;
+		setSignupCredentials({
+			...signupCredentials,
+			[name]: value,
+		});
+	};
 
 	const yupValidator = (event) => {
 		const { name, value } = event.target;
