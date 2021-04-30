@@ -166,7 +166,7 @@ const Plants = (props) => {
 							color="textSecondary"
 							paragraph
 						>
-							Well-watered plants are happy plants or something like that idr
+							Well-watered plants are happy plants
 						</Typography>
 						<div className={classes.heroButtons}>
 							<Grid container spacing={2} justify="center">
@@ -209,7 +209,7 @@ const Plants = (props) => {
 										/>
 										<CardContent className={classes.cardContent}>
 											<Typography gutterBottom variant="h5" component="h2">
-												Placeholder Card <br />
+												{card.nickname} <br />
 											</Typography>
 											<Typography>
 												Nickname: {card.nickname} <br />
@@ -218,13 +218,6 @@ const Plants = (props) => {
 											</Typography>
 										</CardContent>
 										<CardActions>
-											<Button
-												className={classes.cardButton}
-												size="small"
-												color="primary"
-											>
-												View
-											</Button>
 											<RouterLink to={`/plants/${card.id}/edit`}>
 												<Button
 													className={classes.cardButton}
@@ -289,8 +282,6 @@ const Plants = (props) => {
 };
 const mapStateToProps = (state) => ({
 	isLoading: state.isLoading,
-	user: state.user,
+	user: state.user
 });
-export default connect(mapStateToProps, { getUser, logout, deletePlant })(
-	Plants,
-);
+export default connect(mapStateToProps, { getUser, logout, deletePlant })(Plants);
