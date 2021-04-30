@@ -63,8 +63,7 @@ const Signup = (props) => {
 			.catch(err => { setFormErrors({ ...formErrors, [name]: err.errors[0], }) })
 			setSignupCredentials({
 			...signupCredentials,
-			[name]: value,
-		})
+			[event.target.username]: event.target.value,		})
 	};
 
 	useEffect(() => {
@@ -156,7 +155,7 @@ const Signup = (props) => {
 								name="phone_number"
 								autoComplete="pnumber"
 								value={signupCredentials.phone_number}
-								onChange={yupValidator}
+								onChange={handleChange}
 							/>
 						</Grid>
 					</Grid>
