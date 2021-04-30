@@ -43,9 +43,9 @@ const Signup = (props) => {
 	const { isLoading, signup } = props;
 	const history = useHistory();
 
-	// useEffect(() => {
-	// 	clearError();
-	// }, []);
+	useEffect(() => {
+		clearError();
+	}, []);
 
 	const handleChange = (event) => {
 		setSignupCredentials({
@@ -55,23 +55,24 @@ const Signup = (props) => {
 	};
 
 	const yupValidator = (event) => {
-		const {name, value} = event.target;
+		const { name, value } = event.target;
 		yup
 			.reach(formSchema, name)
 			.validate(value)
 			.then(() => { setFormErrors({ ...formErrors, [name]: '' }) })
 			.catch(err => { setFormErrors({ ...formErrors, [name]: err.errors[0], }) })
-			setSignupCredentials({
+		setSignupCredentials({
 			...signupCredentials,
-			[event.target.username]: event.target.value,		})
+			[name]: value,
+		})
 	};
 
 	useEffect(() => {
 		formSchema.isValid(signupCredentials).then((valid) => {
 			setDisabled(!valid);
 		});
-	}, [signupCredentials.username, signupCredentials.password, signupCredentials.phone_number]);
-	
+	}, [signupCredentials.username, signupCredentials.password]);
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		signup(signupCredentials, history);
