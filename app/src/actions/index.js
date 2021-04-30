@@ -102,6 +102,7 @@ export const updateUser = (user) => (dispatch) => {
 	axiosWithAuth()
 		.put(`https://tt157-backend.herokuapp.com/api/users/${id}`, user)
 		.then((response) => {
+			console.log('update user response', response)
 			dispatch({
 				type: UPDATE_USER_SUCCESS,
 				payload: response.data,
