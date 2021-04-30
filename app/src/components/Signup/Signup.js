@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { signup } from "../../actions";
+import { signup, clearError } from "../../actions";
 import { connect } from "react-redux";
 import * as yup from "yup";
 
@@ -39,7 +39,7 @@ const Signup = (props) => {
 	const [signupCredentials, setSignupCredentials] = useState(initialSignupCredentials);
 	const [formErrors, setFormErrors] = useState(initialFormErrors);
 	const [disabled, setDisabled] = useState(true);
-	const { isLoading, signup } = props;
+	const { isLoading, signup, clearError } = props;
 	const history = useHistory();
 
 	useEffect(() => {
@@ -192,4 +192,4 @@ const mapStateToProps = (state) => ({
 	isLoading: state.isLoading,
 });
 
-export default connect(mapStateToProps, { signup })(Signup);
+export default connect(mapStateToProps, { signup, clearError })(Signup);
