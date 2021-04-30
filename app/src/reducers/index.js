@@ -49,7 +49,11 @@ export const reducer = (state = initialState, action) => {
         case UPDATE_USER_SUCCESS:
             return {
                 ...state,
-                user: action.payload,
+                user: {
+                    ...state.user,
+                    username: action.payload.username,
+                    phone_number: action.payload.phone_number
+                },
                 fetchError: null,
                 isLoading: false
             }
