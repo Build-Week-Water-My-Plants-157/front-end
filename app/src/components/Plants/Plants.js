@@ -282,6 +282,6 @@ const Plants = (props) => {
 };
 const mapStateToProps = (state) => ({
 	isLoading: state.isLoading,
-	user: state.user,
+	user: state.user
 });
 export default connect(mapStateToProps, { getUser, logout, deletePlant })(Plants);
