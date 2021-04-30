@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { signup, clearError } from "../../actions";
+import { signup } from "../../actions";
 import { connect } from "react-redux";
 import * as yup from "yup";
 
@@ -32,26 +32,34 @@ const initialFormErrors = {
 const formSchema = yup.object().shape({
 	username: yup.string().required('required'),
 	password: yup.string().required('required'),
+	phone_number: yup.string().required('required'),
 });
 
 const Signup = (props) => {
 	const [signupCredentials, setSignupCredentials] = useState(initialSignupCredentials);
-	// const [formValues, setFormValues] = useState(initialSignupCredentials);
 	const [formErrors, setFormErrors] = useState(initialFormErrors);
 	const [disabled, setDisabled] = useState(true);
 	const { isLoading, signup } = props;
 	const history = useHistory();
 
-	useEffect(() => {
-		clearError();
-	}, [clearError]);
+	// useEffect(() => {
+	// 	clearError();
+	// }, [clearError]);
+
+	// const handleChange = (event) => {
+	// 	setSignupCredentials({
+	// 		...signupCredentials,
+	// 		[event.target.username]: event.target.value,
+	// 	});
+	// };
 
 	const handleChange = (event) => {
-		setSignupCredentials({
-			...signupCredentials,
-			[event.target.username]: event.target.value,
-		});
-	};
+        const { name, value } = event.target;
+        setSignupCredentials({
+            ...signupCredentials,
+            [name]: value,
+        });
+    };
 
 	const yupValidator = (event) => {
 		const { name, value } = event.target;
@@ -70,7 +78,7 @@ const Signup = (props) => {
 		formSchema.isValid(signupCredentials).then((valid) => {
 			setDisabled(!valid);
 		});
-	}, [signupCredentials.username, signupCredentials.password]);
+	}, [signupCredentials.username, signupCredentials.password, signupCredentials.phone_number]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -191,4 +199,4 @@ const mapStateToProps = (state) => ({
 	isLoading: state.isLoading,
 });
 
-export default connect(mapStateToProps, { signup, clearError })(Signup);
+export default connect(mapStateToProps, { signup })(Signup);
