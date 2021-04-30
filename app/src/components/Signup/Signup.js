@@ -71,7 +71,7 @@ const Signup = (props) => {
 		formSchema.isValid(signupCredentials).then((valid) => {
 			setDisabled(!valid);
 		});
-	}, [signupCredentials.username, signupCredentials.password, signupCredentials.phone_number]);
+	}, [signupCredentials]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
