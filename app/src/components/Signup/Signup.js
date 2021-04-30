@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { signup, clearError } from "../../actions";
 import { connect } from "react-redux";
+import * as yup from "yup";
 
 // MUI Imports
 import Avatar from "@material-ui/core/Avatar";
@@ -22,10 +23,22 @@ const initialSignupCredentials = {
 	password: "",
 	phone_number: "",
 };
+const initialFormErrors = {
+	username: 'required.',
+	password: 'required.',
+	phone_number: 'required',
+};
+
+const formSchema = yup.object().shape({
+	username: yup.string().required('required'),
+	password: yup.string().required('required'),
+	phone_number: yup.string().required('required'),
+});
+
 const Signup = (props) => {
-	const [signupCredentials, setSignupCredentials] = useState(
-		initialSignupCredentials,
-	);
+	const [signupCredentials, setSignupCredentials] = useState(initialSignupCredentials);
+	const [formErrors, setFormErrors] = useState(initialFormErrors);
+	const [disabled, setDisabled] = useState(true);
 	const { isLoading, signup, clearError } = props;
 	const history = useHistory();
 
@@ -34,17 +47,38 @@ const Signup = (props) => {
 	}, [clearError]);
 
 	const handleChange = (event) => {
+		const { name, value } = event.target;
 		setSignupCredentials({
 			...signupCredentials,
-			[event.target.name]: event.target.value,
+			[name]: value,
 		});
 	};
+
+	const yupValidator = (event) => {
+		const { name, value } = event.target;
+		yup
+			.reach(formSchema, name)
+			.validate(value)
+			.then(() => { setFormErrors({ ...formErrors, [name]: '' }) })
+			.catch(err => { setFormErrors({ ...formErrors, [name]: err.errors[0], }) })
+		setSignupCredentials({
+			...signupCredentials,
+			[name]: value,
+		})
+	};
+
+	useEffect(() => {
+		formSchema.isValid(signupCredentials).then((valid) => {
+			setDisabled(!valid);
+		});
+	}, [signupCredentials]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		signup(signupCredentials, history);
 	};
 
+	// Styles using a MUI Theme 
 	const useStyles = makeStyles((theme) => ({
 		paper: {
 			marginTop: theme.spacing(8),
@@ -78,12 +112,14 @@ const Signup = (props) => {
 					Sign up
 				</Typography>
 				<form onSubmit={handleSubmit} className={classes.form} noValidate>
+
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
 								type="text"
 								value={signupCredentials.username}
-								onChange={handleChange}
+								onChange={yupValidator}
+								errors="formErrors"
 								autoComplete="uname"
 								name="username"
 								variant="outlined"
@@ -106,7 +142,7 @@ const Signup = (props) => {
 								id="password"
 								autoComplete="current-password"
 								value={signupCredentials.password}
-								onChange={handleChange}
+								onChange={yupValidator}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -130,7 +166,7 @@ const Signup = (props) => {
 						variant="contained"
 						color="primary"
 						className={classes.submit}
-						disabled={isLoading}
+						disabled={(isLoading, disabled)}
 					>
 						Sign Up
 					</Button>
