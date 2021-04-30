@@ -5,9 +5,9 @@ import Signup from "./components/Signup/Signup";
 import Plants from "./components/Plants/Plants";
 import CreatePlant from "./components/CreatePlant/CreatePlant";
 import EditPlant from "./components/EditPlant/EditPlant";
-import ProtectedRoute from "./utils/ProtectedRoute";
 import EditProfile from "./components/EditProfile/EditProfile";
-
+import Footer from "./components/Footer/Footer";
+import ProtectedRoute from "./utils/ProtectedRoute";
 import Alert from "@material-ui/lab/Alert";
 import { connect } from "react-redux";
 
@@ -27,6 +27,7 @@ function App(props) {
           <Login />
         </Route>
       </Switch>
+      <Footer />
     </div>
   );
 }
