@@ -28,6 +28,7 @@ function App(props) {
 					<Login />
 				</Route>
 			</Switch>
+			<Footer />
 		</div>
 	);
 }

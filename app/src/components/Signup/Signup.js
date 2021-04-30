@@ -15,7 +15,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Footer from "../Footer/Footer";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -45,7 +44,7 @@ const Signup = (props) => {
 
 	useEffect(() => {
 		clearError();
-	}, []);
+	}, [clearError]);
 
 	const handleChange = (event) => {
 		setSignupCredentials({
@@ -184,7 +183,6 @@ const Signup = (props) => {
 					<CircularProgress />
 				</Box>
 			)}
-			<Footer />
 		</Container>
 	);
 };
