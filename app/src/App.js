@@ -15,18 +15,20 @@ function App(props) {
   return (
     <div className="App">
       {props.fetchError && <Alert severity="error">{props.fetchError}</Alert>}
-      <Switch>
-        <ProtectedRoute exact path="/plants" component={Plants} />
-        <ProtectedRoute path="/plants/:id/edit" component={EditPlant} />
-        <ProtectedRoute path="/plants/create" component={CreatePlant} />
-        <ProtectedRoute path="/profile" component={EditProfile} />
-        <Route path="/signup">
-          <Signup />
-        </Route>
-        <Route exact path="/">
-          <Login />
-        </Route>
-      </Switch>
+      <div className="app-content">
+        <Switch>
+          <ProtectedRoute exact path="/plants" component={Plants} />
+          <ProtectedRoute path="/plants/:id/edit" component={EditPlant} />
+          <ProtectedRoute path="/plants/create" component={CreatePlant} />
+          <ProtectedRoute path="/profile" component={EditProfile} />
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route exact path="/">
+            <Login />
+          </Route>
+        </Switch>
+      </div>
       <Footer />
     </div>
   );
