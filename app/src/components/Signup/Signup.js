@@ -42,9 +42,9 @@ const Signup = (props) => {
 	const { isLoading, signup } = props;
 	const history = useHistory();
 
-	// useEffect(() => {
-	// 	clearError();
-	// }, [clearError]);
+	useEffect(() => {
+		clearError();
+	}, [clearError]);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
