@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialFormErrors = {
-	username: "",
-	password: "",
+	username: "Username required.",
+	password: "Password required",
 };
 
 const initialLoginCredentials = {
