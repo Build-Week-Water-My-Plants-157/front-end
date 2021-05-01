@@ -24,15 +24,15 @@ const initialSignupCredentials = {
 	phone_number: "",
 };
 const initialFormErrors = {
-	username: 'required.',
-	password: 'required.',
-	phone_number: 'required',
+	username: " ",
+	password: " ",
+	phone_number: " ",
 };
 
 const formSchema = yup.object().shape({
-	username: yup.string().required('required'),
-	password: yup.string().required('required'),
-	phone_number: yup.string().required('required'),
+	username: yup.string().required('username is required'),
+	password: yup.string().required('password is required'),
+	// phone_number: yup.string().required('required'),
 });
 
 const Signup = (props) => {
@@ -129,6 +129,14 @@ const Signup = (props) => {
 								label="Username"
 								autoFocus
 							/>
+							{/* error messages  */}
+							<Typography
+								className="errorMessage"
+								variant="caption"
+								color="error"
+							>
+								{formErrors.username}
+							</Typography>
 						</Grid>
 
 						<Grid item xs={12}>
@@ -144,6 +152,14 @@ const Signup = (props) => {
 								value={signupCredentials.password}
 								onChange={yupValidator}
 							/>
+							{/* error messages  */}
+							<Typography
+								className="errorMessage"
+								variant="caption"
+								color="error"
+							>
+								{formErrors.password}
+							</Typography>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -158,6 +174,14 @@ const Signup = (props) => {
 								value={signupCredentials.phone_number}
 								onChange={handleChange}
 							/>
+							{/* error messages  */}
+							<Typography
+								className="errorMessage"
+								variant="caption"
+								color="error"
+							>
+								{formErrors.phone_number}
+							</Typography>
 						</Grid>
 					</Grid>
 					<Button
