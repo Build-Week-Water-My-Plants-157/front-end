@@ -24,19 +24,21 @@ const initialSignupCredentials = {
 	phone_number: "",
 };
 const initialFormErrors = {
-	username: 'required.',
-	password: 'required.',
-	phone_number: 'required',
+	username: "required.",
+	password: "required.",
+	phone_number: "required",
 };
 
 const formSchema = yup.object().shape({
-	username: yup.string().required('required'),
-	password: yup.string().required('required'),
-	phone_number: yup.string().required('required'),
+	username: yup.string().required("required"),
+	password: yup.string().required("required"),
+	phone_number: yup.string().required("required"),
 });
 
 const Signup = (props) => {
-	const [signupCredentials, setSignupCredentials] = useState(initialSignupCredentials);
+	const [signupCredentials, setSignupCredentials] = useState(
+		initialSignupCredentials,
+	);
 	const [formErrors, setFormErrors] = useState(initialFormErrors);
 	const [disabled, setDisabled] = useState(true);
 	const { isLoading, signup, clearError } = props;
@@ -59,12 +61,16 @@ const Signup = (props) => {
 		yup
 			.reach(formSchema, name)
 			.validate(value)
-			.then(() => { setFormErrors({ ...formErrors, [name]: '' }) })
-			.catch(err => { setFormErrors({ ...formErrors, [name]: err.errors[0], }) })
+			.then(() => {
+				setFormErrors({ ...formErrors, [name]: "" });
+			})
+			.catch((err) => {
+				setFormErrors({ ...formErrors, [name]: err.errors[0] });
+			});
 		setSignupCredentials({
 			...signupCredentials,
 			[name]: value,
-		})
+		});
 	};
 
 	useEffect(() => {
@@ -78,7 +84,7 @@ const Signup = (props) => {
 		signup(signupCredentials, history);
 	};
 
-	// Styles using a MUI Theme 
+	// Styles using a MUI Theme
 	const useStyles = makeStyles((theme) => ({
 		paper: {
 			marginTop: theme.spacing(8),
@@ -112,7 +118,6 @@ const Signup = (props) => {
 					Sign up
 				</Typography>
 				<form onSubmit={handleSubmit} className={classes.form} noValidate>
-
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField

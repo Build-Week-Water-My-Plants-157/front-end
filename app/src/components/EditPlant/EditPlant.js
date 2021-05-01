@@ -5,7 +5,7 @@ import { getUser, updatePlant } from "../../actions";
 import ActionBar from "../ActionBar/ActionBar";
 
 import * as yup from "yup";
-import schema from "../../validation/plantForms";
+import { plantSchema as schema } from "../../validation/plantForms";
 
 // MUI Imports
 import Avatar from "@material-ui/core/Avatar";
