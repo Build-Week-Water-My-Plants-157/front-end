@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { signup, clearError } from "../../actions";
 import { connect } from "react-redux";
 import * as yup from "yup";
+import { signupSchema as schema } from "../../validation/plantForms";
 
 // MUI Imports
 import Avatar from "@material-ui/core/Avatar";
@@ -24,16 +25,10 @@ const initialSignupCredentials = {
 	phone_number: "",
 };
 const initialFormErrors = {
-	username: "required.",
-	password: "required.",
-	phone_number: "required",
+	username: "",
+	password: "",
+	phone_number: "",
 };
-
-const formSchema = yup.object().shape({
-	username: yup.string().required("required"),
-	password: yup.string().required("required"),
-	phone_number: yup.string().required("required"),
-});
 
 const Signup = (props) => {
 	const [signupCredentials, setSignupCredentials] = useState(
@@ -59,7 +54,7 @@ const Signup = (props) => {
 	const yupValidator = (event) => {
 		const { name, value } = event.target;
 		yup
-			.reach(formSchema, name)
+			.reach(schema, name)
 			.validate(value)
 			.then(() => {
 				setFormErrors({ ...formErrors, [name]: "" });
@@ -73,8 +68,9 @@ const Signup = (props) => {
 		});
 	};
 
+	// useEffect for enabling/disabling submit button
 	useEffect(() => {
-		formSchema.isValid(signupCredentials).then((valid) => {
+		schema.isValid(signupCredentials).then((valid) => {
 			setDisabled(!valid);
 		});
 	}, [signupCredentials]);
@@ -132,8 +128,15 @@ const Signup = (props) => {
 								fullWidth
 								id="userName"
 								label="Username"
-								autoFocus
 							/>
+							{/* username error message */}
+							<Typography
+								className="errorMessage"
+								variant="caption"
+								color="error"
+							>
+								{formErrors.username}
+							</Typography>
 						</Grid>
 
 						<Grid item xs={12}>
@@ -149,20 +152,37 @@ const Signup = (props) => {
 								value={signupCredentials.password}
 								onChange={yupValidator}
 							/>
+							{/* Password error message */}
+							<Typography
+								className="errorMessage"
+								variant="caption"
+								color="error"
+							>
+								{formErrors.password}
+							</Typography>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
 								variant="outlined"
-								required
+								optional="true"
 								fullWidth
 								id="phoneNumber"
-								label="Phone Number"
+								label="Phone Number (Optional)"
 								type="tel"
 								name="phone_number"
 								autoComplete="pnumber"
 								value={signupCredentials.phone_number}
 								onChange={handleChange}
 							/>
+
+							{/* phone number error message */}
+							<Typography
+								className="errorMessage"
+								variant="caption"
+								color="error"
+							>
+								{formErrors.phone_number}
+							</Typography>
 						</Grid>
 					</Grid>
 					<Button
@@ -175,7 +195,7 @@ const Signup = (props) => {
 					>
 						Sign Up
 					</Button>
-					<Grid container justify="flex-end">
+					<Grid container justifyContent="flex-end">
 						<Grid item>
 							<Link href="/" variant="body2">
 								Already have an account? Sign in

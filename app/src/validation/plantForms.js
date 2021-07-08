@@ -13,4 +13,11 @@ const loginSchema = yup.object().shape({
 	password: yup.string().required("Password required."),
 });
 
-export { plantSchema, loginSchema };
+const signupSchema = yup.object().shape({
+	// signup verification
+	username: yup.string().required("Username required."),
+	password: yup.string().required("Password required."),
+	// phone_number: yup.number().notRequired(),
+});
+
+export { plantSchema, loginSchema, signupSchema };

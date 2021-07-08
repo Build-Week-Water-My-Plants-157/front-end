@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialFormErrors = {
-	username: "Username required.",
-	password: "Password required",
+	username: "",
+	password: "",
 };
 
 const initialLoginCredentials = {
@@ -107,11 +107,10 @@ const Login = (props) => {
 		});
 	};
 
-	// ! useEffect for enabling/disabling submit button
+	// useEffect for enabling/disabling submit button
 	useEffect(() => {
 		schema.isValid(loginCredentials).then((valid) => {
 			setSubmitDisabled(!valid);
-			console.log(valid);
 		});
 	}, [loginCredentials]);
 
@@ -138,7 +137,6 @@ const Login = (props) => {
 								fullWidth
 								id="userName"
 								label="Username"
-								autoFocus
 							/>
 							{/* username error message */}
 							<Typography

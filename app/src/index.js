@@ -8,9 +8,9 @@ import { Provider } from "react-redux";
 import { reducer } from "./reducers";
 import thunk from "redux-thunk";
 import { BrowserRouter as Router } from "react-router-dom";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
+const theme = createTheme({
 	palette: {
 		primary: {
 			main: "#66bb6a",
