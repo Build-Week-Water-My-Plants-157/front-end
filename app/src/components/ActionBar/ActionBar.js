@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { logout } from "../../actions";
+import { useHistory } from "react-router-dom";
 
 // MUI imports
 import EcoIcon from "@material-ui/icons/Eco";
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 	logoWrapper: {
 		display: "flex",
 		alignItems: "center",
+		cursor: "pointer",
 	},
 	icon: {
 		marginRight: theme.spacing(2),
@@ -28,11 +30,17 @@ const useStyles = makeStyles((theme) => ({
 
 const ActionBar = (props) => {
 	const classes = useStyles();
+	const history = useHistory();
 
 	return (
 		<AppBar position="relative">
 			<Toolbar className={classes.toolBarWrapper}>
-				<Container className={classes.logoWrapper}>
+				<Container
+					className={classes.logoWrapper}
+					onClick={() => {
+						history.push("/plants");
+					}}
+				>
 					<EcoIcon className={classes.icon} />
 					<Typography variant="h6" color="inherit" noWrap>
 						Water My Plants
