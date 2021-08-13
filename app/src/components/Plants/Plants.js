@@ -171,14 +171,14 @@ const Plants = (props) => {
 						<div className={classes.heroButtons}>
 							<Grid container spacing={2} justify="center">
 								<Grid item>
-									<Link
-										href="/plants/create"
+									<RouterLink
+										to={"/plants/create"}
 										style={{ textDecoration: "none" }}
 									>
 										<Button variant="contained" color="primary">
 											Add Plant
 										</Button>
-									</Link>
+									</RouterLink>
 								</Grid>
 							</Grid>
 						</div>
@@ -282,6 +282,8 @@ const Plants = (props) => {
 };
 const mapStateToProps = (state) => ({
 	isLoading: state.isLoading,
-	user: state.user
+	user: state.user,
 });
-export default connect(mapStateToProps, { getUser, logout, deletePlant })(Plants);
+export default connect(mapStateToProps, { getUser, logout, deletePlant })(
+	Plants,
+);
